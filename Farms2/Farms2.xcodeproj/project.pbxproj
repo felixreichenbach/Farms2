@@ -12,6 +12,7 @@
 		632BEC852455D7B700E9192C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632BEC842455D7B700E9192C /* ContentView.swift */; };
 		632BEC872455D7BA00E9192C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 632BEC862455D7BA00E9192C /* Assets.xcassets */; };
 		632BEC8A2455D7BA00E9192C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 632BEC892455D7BA00E9192C /* Preview Assets.xcassets */; };
+		FFDE7442436DEAA61644131C /* Pods_Farms2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBC78AF74FCBFEBF9D581863 /* Pods_Farms2.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +23,9 @@
 		632BEC862455D7BA00E9192C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		632BEC892455D7BA00E9192C /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		632BEC8E2455D7BA00E9192C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A1FC6A365E70E7984FB7BDB1 /* Pods-Farms2.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Farms2.debug.xcconfig"; path = "Target Support Files/Pods-Farms2/Pods-Farms2.debug.xcconfig"; sourceTree = "<group>"; };
+		C83A4A7AB13EC546E83CF8BE /* Pods-Farms2.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Farms2.release.xcconfig"; path = "Target Support Files/Pods-Farms2/Pods-Farms2.release.xcconfig"; sourceTree = "<group>"; };
+		CBC78AF74FCBFEBF9D581863 /* Pods_Farms2.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Farms2.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,6 +33,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FFDE7442436DEAA61644131C /* Pods_Farms2.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -40,6 +45,8 @@
 			children = (
 				632BEC7F2455D7B700E9192C /* Farms2 */,
 				632BEC7E2455D7B700E9192C /* Products */,
+				AD183BC9FF8C7B53AE14EECF /* Pods */,
+				F314A6884B9003E443BD7DB1 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -72,6 +79,24 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
+		AD183BC9FF8C7B53AE14EECF /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				A1FC6A365E70E7984FB7BDB1 /* Pods-Farms2.debug.xcconfig */,
+				C83A4A7AB13EC546E83CF8BE /* Pods-Farms2.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		F314A6884B9003E443BD7DB1 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				CBC78AF74FCBFEBF9D581863 /* Pods_Farms2.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -79,9 +104,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 632BEC912455D7BA00E9192C /* Build configuration list for PBXNativeTarget "Farms2" */;
 			buildPhases = (
+				00D0CF7E64E850D48B980DB6 /* [CP] Check Pods Manifest.lock */,
 				632BEC792455D7B700E9192C /* Sources */,
 				632BEC7A2455D7B700E9192C /* Frameworks */,
 				632BEC7B2455D7B700E9192C /* Resources */,
+				CA712FE7922EDCCDB1AAD589 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -136,6 +163,48 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		00D0CF7E64E850D48B980DB6 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Farms2-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		CA712FE7922EDCCDB1AAD589 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Farms2/Pods-Farms2-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Farms2/Pods-Farms2-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Farms2/Pods-Farms2-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		632BEC792455D7B700E9192C /* Sources */ = {
@@ -267,6 +336,7 @@
 		};
 		632BEC922455D7BA00E9192C /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A1FC6A365E70E7984FB7BDB1 /* Pods-Farms2.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -287,6 +357,7 @@
 		};
 		632BEC932455D7BA00E9192C /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C83A4A7AB13EC546E83CF8BE /* Pods-Farms2.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;

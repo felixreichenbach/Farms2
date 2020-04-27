@@ -20,11 +20,11 @@ struct MyView: View {
     var body: some View {
         NavigationView {
             List {
-                ForEach(viewModel.myModel, id: \.id) { model in
-                    Text(model.name)
+                ForEach(viewModel.myModel, id: \.id) {
+                    model in Text(model.name)
                 }
             }
-            .navigationBarTitle(Text("Models"))
+            .navigationBarTitle(Text("Models: \(viewModel.myModel.count)"))
             .navigationBarItems(
                 leading:
                 Button(action: {

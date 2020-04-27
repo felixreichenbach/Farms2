@@ -19,6 +19,9 @@ struct MySheetView: View {
         self._showSheetView = showSheetView
     }
     
+    private var validated: Bool {
+        inputText.isEmpty
+    }
     
     var body: some View {
         VStack {
@@ -33,7 +36,7 @@ struct MySheetView: View {
             }) {
                 Text("Save")
                     .font(.headline)
-            }
+            }.disabled(validated)
         }
     }
 }

@@ -11,5 +11,5 @@ import RealmSwift
 
 class MyModel: Object {
     @objc dynamic var id = UUID().uuidString
-    @objc dynamic var name: String = "MyName"
+    @objc dynamic var name: String = "Default"
 }

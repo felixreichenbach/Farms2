@@ -45,12 +45,13 @@ class MyViewModel: ObservableObject, Identifiable {
     }
     
     func cleanModels() {
-        // Deleting object ins realm files throws an error
         print("cleanModels function not yet implemented")
+        // Deleting object ins realm files throws an error
+        // Feature: https://github.com/realm/realm-cocoa/pull/6231
+
         /*
         try! self.realm.write {
-          realm.deleteAll()
-        }
-        */
+            realm.deleteAll()
+        }*/
     }
 }

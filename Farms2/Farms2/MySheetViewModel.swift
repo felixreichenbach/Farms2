@@ -18,7 +18,6 @@ class MySheetViewModel: ObservableObject {
     }
     
     func addModel(text: String) {
-        
         let newModel = MyModel()
         newModel.name = text
         // Persist your data easily

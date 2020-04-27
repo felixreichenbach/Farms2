@@ -11,6 +11,7 @@ import SwiftUI
 struct MyView: View {
     
     @ObservedObject var viewModel: MyViewModel
+    @State var showMySheetView = false
     
     init(viewModel: MyViewModel) {
         self.viewModel = viewModel
@@ -28,15 +29,14 @@ struct MyView: View {
                 leading:
                 Button(action: {
                     self.viewModel.cleanModels()
-                }) {Text("Clean Realm")}
-                ,trailing:
+                }) {Text("Clean Realm")},
+                trailing:
                 Button(action: {
-                    self.viewModel.addModel()
+                    self.showMySheetView.toggle()
                 }) {Text("Add")}
-                    //.sheet(isPresented: $showSheetView) {
-                    //    SheetView(showSheetView: self.$showSheetView, viewModel: self.viewModel)
-                //}
-            )
+                    .sheet(isPresented: $showMySheetView) {
+                        MySheetView(showSheetView: self.$showMySheetView)
+            })
         }
     }
 }

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		630FF3312456EAB500DB4297 /* MySheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 630FF3302456EAB500DB4297 /* MySheetView.swift */; };
+		630FF3332456EAFA00DB4297 /* MySheetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 630FF3322456EAFA00DB4297 /* MySheetViewModel.swift */; };
 		632BEC812455D7B700E9192C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632BEC802455D7B700E9192C /* AppDelegate.swift */; };
 		632BEC832455D7B700E9192C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632BEC822455D7B700E9192C /* SceneDelegate.swift */; };
 		632BEC852455D7B700E9192C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632BEC842455D7B700E9192C /* ContentView.swift */; };
@@ -19,6 +21,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		630FF3302456EAB500DB4297 /* MySheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MySheetView.swift; sourceTree = "<group>"; };
+		630FF3322456EAFA00DB4297 /* MySheetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MySheetViewModel.swift; sourceTree = "<group>"; };
 		632BEC7D2455D7B700E9192C /* Farms2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Farms2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		632BEC802455D7B700E9192C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		632BEC822455D7B700E9192C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -73,9 +77,11 @@
 				632BEC862455D7BA00E9192C /* Assets.xcassets */,
 				632BEC8E2455D7BA00E9192C /* Info.plist */,
 				632BEC882455D7BA00E9192C /* Preview Content */,
-				632F5F122456176400775FE3 /* MyViewModel.swift */,
-				632F5F142456BBEE00775FE3 /* MyView.swift */,
 				632F5F162456C18F00775FE3 /* MyModel.swift */,
+				632F5F142456BBEE00775FE3 /* MyView.swift */,
+				632F5F122456176400775FE3 /* MyViewModel.swift */,
+				630FF3302456EAB500DB4297 /* MySheetView.swift */,
+				630FF3322456EAFA00DB4297 /* MySheetViewModel.swift */,
 			);
 			path = Farms2;
 			sourceTree = "<group>";
@@ -222,6 +228,8 @@
 				632BEC812455D7B700E9192C /* AppDelegate.swift in Sources */,
 				632F5F172456C18F00775FE3 /* MyModel.swift in Sources */,
 				632BEC832455D7B700E9192C /* SceneDelegate.swift in Sources */,
+				630FF3312456EAB500DB4297 /* MySheetView.swift in Sources */,
+				630FF3332456EAFA00DB4297 /* MySheetViewModel.swift in Sources */,
 				632F5F152456BBEE00775FE3 /* MyView.swift in Sources */,
 				632F5F132456176400775FE3 /* MyViewModel.swift in Sources */,
 				632BEC852455D7B700E9192C /* ContentView.swift in Sources */,

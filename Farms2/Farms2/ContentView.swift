@@ -9,8 +9,16 @@
 import SwiftUI
 
 struct ContentView: View {
+    @EnvironmentObject var settings: UserSettings
+    
     var body: some View {
-        MyView(viewModel: MyViewModel())
+        Group {
+            if settings.loggedIn == true {
+                MyView(viewModel: MyViewModel())
+            } else {
+                LoginView()
+            }
+        }
     }
 }
 

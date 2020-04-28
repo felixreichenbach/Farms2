@@ -11,11 +11,11 @@ import SwiftUI
 struct MySheetView: View {
     
     @Binding var showSheetView: Bool
-    @ObservedObject var viewModel: MySheetViewModel
+    @ObservedObject var viewModel: MyViewModel
     @State private var inputText: String = ""
     
-    init(showSheetView: Binding<Bool>) {
-        self.viewModel = MySheetViewModel()
+    init(viewModel: MyViewModel, showSheetView: Binding<Bool>) {
+        self.viewModel = viewModel
         self._showSheetView = showSheetView
     }
     
@@ -31,7 +31,7 @@ struct MySheetView: View {
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .padding()
             Button(action: {
-                self.viewModel.addModel(text: self.inputText)
+                self.save()
                 self.showSheetView.toggle()
             }) {
                 Text("Save")
@@ -39,10 +39,14 @@ struct MySheetView: View {
             }.disabled(validated)
         }
     }
+    
+    func save() {
+        self.viewModel.addModel(text: inputText)
+    }
 }
 
 struct MySheetView_Previews: PreviewProvider {
     static var previews: some View {
-        MySheetView(showSheetView: .constant(true))
+        MySheetView(viewModel: MyViewModel(), showSheetView: .constant(true))
     }
 }

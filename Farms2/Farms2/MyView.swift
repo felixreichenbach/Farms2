@@ -9,13 +9,9 @@
 import SwiftUI
 
 struct MyView: View {
-    
-    @ObservedObject var viewModel: MyViewModel
+    @EnvironmentObject var settings: UserSettings
+    @ObservedObject var viewModel = MyViewModel()
     @State var showMySheetView = false
-    
-    init(viewModel: MyViewModel) {
-        self.viewModel = viewModel
-    }
     
     var body: some View {
         NavigationView {
@@ -28,14 +24,14 @@ struct MyView: View {
             .navigationBarItems(
                 leading:
                 Button(action: {
-                    self.viewModel.cleanModels()
-                }) {Text("Clean Realm")},
+                    self.settings.logout()
+                }) {Text("Logout")},
                 trailing:
                 Button(action: {
                     self.showMySheetView.toggle()
                 }) {Text("Add")}
                     .sheet(isPresented: $showMySheetView) {
-                        MySheetView(showSheetView: self.$showMySheetView)
+                        MySheetView(viewModel: self.viewModel,showSheetView: self.$showMySheetView)
             })
         }
     }
@@ -43,6 +39,6 @@ struct MyView: View {
 
 struct View_Previews: PreviewProvider {
     static var previews: some View {
-        MyView(viewModel: MyViewModel())
+        MyView()
     }
 }

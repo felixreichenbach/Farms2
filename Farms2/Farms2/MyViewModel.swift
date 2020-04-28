@@ -9,7 +9,7 @@
 import Foundation
 import RealmSwift
 
-class MyViewModel: ObservableObject, Identifiable {
+class MyViewModel: ObservableObject {
 
     @Published var refresh = true
     
@@ -19,8 +19,9 @@ class MyViewModel: ObservableObject, Identifiable {
     var notificationToken: NotificationToken? = nil
 
     init() {
-        // Get the default Realm
-        self.realm = try! Realm()
+        // Get the synced Realm
+        let config = SyncUser.current?.configuration(realmURL: Constants.REALM_URL, fullSynchronization: true, enableSSLValidation: true)
+        self.realm = try! Realm(configuration: config!)
         // Query Realm for all MyModels
         self.myModel = realm.objects(MyModel.self)
         
@@ -36,13 +37,15 @@ class MyViewModel: ObservableObject, Identifiable {
         print("deinit")
     }
     
-    func addModel() {
+    func addModel(text: String) {
+        let newModel = MyModel()
+        newModel.name = text
         // Persist your data easily
-        try! realm.write {
-            self.realm.add(MyModel())
+        try! realm.write(withoutNotifying: [notificationToken!]) {
+            self.realm.add(newModel)
         }
-        self.refresh.toggle()
     }
+
     
     func cleanModels() {
         print("cleanModels function not yet implemented")

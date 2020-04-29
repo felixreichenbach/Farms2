@@ -25,7 +25,7 @@
 - Add a new item via the iPhone and show the the item being created in the Realm Cloud
 - Change the name field in Realm Studio and watch the change on the iPhone
 
-Note: There is a limitation with SwiftUI, when deleting items in a realm -> This app will crash! I haven't implemented a workaround, as this should be fixed within the next release.
+__Note:__ There is a limitation with SwiftUI, when deleting items in a realm -> This app will crash! I haven't implemented a workaround, as this should be fixed within the next release.
 
 
 Let me know what you think and what could be improved! 

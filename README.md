@@ -3,6 +3,9 @@
 ## Unverified Deployment Procedure
 
 - Clone repo
-- change into the "farms2" directory and run ```pod update``` 
-- run ```pod install```
-- open farms2.xcworkspace
+- Change into the Farms2 folder: ```cd Farms2```
+- Update the pods ```pod update``` 
+- open farms2.xcworkspace with Xcode
+- Selet the Constants.swift file
+- Change ```static let MY_INSTANCE_ADDRESS = "YOUR-REALM-NAME-HERE.cloud.realm.io" ```
+

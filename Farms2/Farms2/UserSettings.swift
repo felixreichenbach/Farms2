@@ -12,7 +12,7 @@ import RealmSwift
 class UserSettings: ObservableObject {
     @Published var loggedIn = false
     
-    var errorLabel = ""
+    @Published var errorLabel = ""
     
     init() {
         if (SyncUser.current == nil) {
@@ -33,6 +33,7 @@ class UserSettings: ObservableObject {
             } else if let error = error {
                 // handle error
                 self.errorLabel = "Error: \(error)"
+                print("Error: \(self.errorLabel)")
             }
         }
         return

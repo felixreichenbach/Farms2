@@ -13,7 +13,7 @@ struct ContentView: View {
     
     var body: some View {
         Group {
-            if settings.loggedIn == true {
+            if (settings.loggedIn) {
                 MyView(viewModel: MyViewModel())
             } else {
                 LoginView()

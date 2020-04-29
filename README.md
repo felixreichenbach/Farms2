@@ -4,5 +4,5 @@
 
 - Clone repo
 - change into the "farms2" directory and run ```pod update````
-- run ```pod install````
+- run ```pod install```
 - open farms2.xcworkspace

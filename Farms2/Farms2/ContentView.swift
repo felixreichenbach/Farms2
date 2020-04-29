@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct ContentView: View {
-    @EnvironmentObject var settings: UserSettings
+    @EnvironmentObject var settings: UserStatus
     
     var body: some View {
         Group {

@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct MySheetView: View {
+struct AddSheetView: View {
     
     @Binding var showSheetView: Bool
     @ObservedObject var viewModel: MyViewModel
@@ -45,8 +45,8 @@ struct MySheetView: View {
     }
 }
 
-struct MySheetView_Previews: PreviewProvider {
+struct AddSheetView_Previews: PreviewProvider {
     static var previews: some View {
-        MySheetView(viewModel: MyViewModel(), showSheetView: .constant(true))
+        AddSheetView(viewModel: MyViewModel(), showSheetView: .constant(true))
     }
 }

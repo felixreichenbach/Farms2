@@ -9,9 +9,9 @@
 import SwiftUI
 
 struct MyView: View {
-    @EnvironmentObject var settings: UserSettings
+    @EnvironmentObject var settings: UserStatus
     @ObservedObject var viewModel = MyViewModel()
-    @State var showMySheetView = false
+    @State var showAddSheetView = false
     
     var body: some View {
         NavigationView {
@@ -28,10 +28,10 @@ struct MyView: View {
                 }) {Text("Logout")},
                 trailing:
                 Button(action: {
-                    self.showMySheetView.toggle()
+                    self.showAddSheetView.toggle()
                 }) {Text("Add")}
-                    .sheet(isPresented: $showMySheetView) {
-                        MySheetView(viewModel: self.viewModel,showSheetView: self.$showMySheetView)
+                    .sheet(isPresented: $showAddSheetView) {
+                        AddSheetView(viewModel: self.viewModel,showSheetView: self.$showAddSheetView)
             })
         }
     }

@@ -9,7 +9,7 @@
 import Foundation
 import RealmSwift
 
-class UserSettings: ObservableObject {
+class UserStatus: ObservableObject {
     @Published var loggedIn = false
     
     @Published var errorLabel = ""

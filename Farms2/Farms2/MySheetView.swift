@@ -31,17 +31,13 @@ struct AddSheetView: View {
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .padding()
             Button(action: {
-                self.save()
+                self.viewModel.addModel(text: self.inputText)
                 self.showSheetView.toggle()
             }) {
                 Text("Save")
                     .font(.headline)
             }.disabled(validated)
         }
-    }
-    
-    func save() {
-        self.viewModel.addModel(text: inputText)
     }
 }
 

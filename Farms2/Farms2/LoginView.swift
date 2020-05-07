@@ -24,12 +24,16 @@ struct LoginView: View {
             SecureField("Passwod", text: $password)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .padding(.bottom, 20)
-            Button(action: login) {
+            Button(action: {
+                self.settings.login(username: self.username, password: self.password, register: false)
+            }) {
                 Text("Login")
             }
             .font(.headline)
             .padding(.bottom, 20)
-            Button(action: signup) {
+            Button(action: {
+                self.settings.login(username: self.username, password: self.password, register: true)
+            }) {
                 Text("Signup")
             }
             .font(.headline)
@@ -38,14 +42,6 @@ struct LoginView: View {
                 .foregroundColor(.red)
         }
         .padding()
-    }
-    
-    func login() {
-        settings.login(username: self.username, password: self.password, register: false)
-    }
-    
-    func signup() {
-        settings.login(username: self.username, password: self.password, register: true)
     }
 }
 

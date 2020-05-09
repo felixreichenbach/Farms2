@@ -20,7 +20,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         
         // Create the Environment Object containing the user login state
-        let userSettings = UserState()
+        let userSettings = AppState()
         
         // Create the SwiftUI view that provides the window contents.
         let contentView = ContentView()

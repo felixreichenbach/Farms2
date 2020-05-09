@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct ContentView: View {
-    @EnvironmentObject var userState: UserState
+    @EnvironmentObject var userState: AppState
     
     var body: some View {
         Group {

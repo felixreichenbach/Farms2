@@ -9,14 +9,14 @@
 import SwiftUI
 
 struct MyView: View {
-    @EnvironmentObject var settings: UserState
+    @EnvironmentObject var settings: AppState
     @ObservedObject var viewModel = MyViewModel()
     @State var showAddSheetView = false
     
     var body: some View {
         NavigationView {
             List {
-                ForEach(viewModel.myOrders, id: \.id) {
+                ForEach(viewModel.myOrders, id: \._id) {
                     model in Text(model.name)
                 }
             }

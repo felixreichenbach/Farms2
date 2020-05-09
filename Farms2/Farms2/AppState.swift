@@ -15,7 +15,7 @@ let app = RealmApp(Constants.MY_REALM_APP,
                                 localAppName: nil,
                                 localAppVersion: nil))
 
-class UserState: ObservableObject {
+class AppState: ObservableObject {
     @Published var loggedIn = false
     @Published var errorLabel = ""
     
@@ -33,7 +33,9 @@ class UserState: ObservableObject {
             guard error == nil else {
                 fatalError(error!.localizedDescription)
             }
-            self.loggedIn = true
+            DispatchQueue.main.async {
+                self.loggedIn = true
+            }
         }
         return
     }

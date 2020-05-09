@@ -11,7 +11,7 @@ import SwiftUI
 import RealmSwift
 
 class MyViewModel: ObservableObject {
-    @EnvironmentObject var settings: UserState
+    @EnvironmentObject var settings: AppState
     @Published var refresh = true
     
     let myOrders: Results<MyOrder>
@@ -32,15 +32,20 @@ class MyViewModel: ObservableObject {
     func initialize(realm: Realm) {
         notificationToken = realm.objects(MyOrder.self).observe{ _ in
             self.refresh.toggle()
+            print("notified")
         }
     }
     
     func addModel(text: String) {
-
+        let newOrder = MyOrder()
+        newOrder.name = text
+        try! self.realm.write {
+            self.realm.add(newOrder)
+        }
     }
 
     
     func cleanModels() {
-        
+        // Stub
     }
 }

@@ -27,17 +27,31 @@ class AppState: ObservableObject {
         }
     }
     
-    func login(username: String, password: String, register: Bool) {
-        print("login / signup")
-        app.login(withCredential: AppCredentials.anonymous()) { (_, error) in
+    
+    func signup(username: String, password: String) {
+        print("signup")
+        let emailPassProvider = app.usernamePasswordProviderClient()
+        emailPassProvider.registerEmail(username, password: password) { (result) in
+            self.login(username: username, password: password)
+        }
+    }
+    
+    func login(username: String, password: String) {
+        print("login")
+        let credentials = AppCredentials.init(username: username, password: password)
+        app.login(withCredential: credentials) { (_, error) in
             guard error == nil else {
-                fatalError(error!.localizedDescription)
+                DispatchQueue.main.async {
+                    self.errorLabel = error!.localizedDescription
+                }
+                return
             }
             DispatchQueue.main.async {
                 self.loggedIn = true
+                self.errorLabel = ""
+                return
             }
         }
-        return
     }
     
     func logout() {

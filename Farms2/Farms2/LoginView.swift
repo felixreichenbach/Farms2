@@ -25,14 +25,14 @@ struct LoginView: View {
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .padding(.bottom, 20)
             Button(action: {
-                self.settings.login(username: self.username, password: self.password, register: false)
+                self.settings.login(username: self.username, password: self.password)
             }) {
                 Text("Login")
             }
             .font(.headline)
             .padding(.bottom, 20)
             Button(action: {
-                self.settings.login(username: self.username, password: self.password, register: true)
+                self.settings.signup(username: self.username, password: self.password)
             }) {
                 Text("Signup")
             }

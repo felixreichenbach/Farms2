@@ -10,7 +10,7 @@ import SwiftUI
 
 struct LoginView: View {
     
-    @EnvironmentObject var settings: UserStatus
+    @EnvironmentObject var settings: UserState
     
     @State var username: String = "foo@bar.com"
     @State var password: String = "password"

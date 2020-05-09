@@ -9,7 +9,13 @@
 import Foundation
 import RealmSwift
 
-class UserStatus: ObservableObject {
+let app = RealmApp(Constants.MY_REALM_APP,
+                   configuration: AppConfiguration(baseURL: Constants.MY_INSTANCE_BASE_URL,
+                                transport: nil,
+                                localAppName: nil,
+                                localAppVersion: nil))
+
+class ContentState: ObservableObject {
     @Published var loggedIn = false
     
     @Published var errorLabel = ""
@@ -24,16 +30,9 @@ class UserStatus: ObservableObject {
     
     func login(username: String, password: String, register: Bool) {
         print("login / signup")
-        let credentials = SyncCredentials.usernamePassword(username: username, password: password, register: register);
-        SyncUser.logIn(with: credentials, server: Constants.AUTH_URL) { user, error in
-            if let user = user {
-                Realm.Configuration.defaultConfiguration = user.configuration()
-                self.errorLabel = ""
-                self.loggedIn = true
-            } else if let error = error {
-                // handle error
-                self.errorLabel = "Error: \(error)"
-                print("Error: \(self.errorLabel)")
+        app.login(withCredential: AppCredentials.anonymous()) { (_, error) in
+            guard error == nil else {
+                fatalError(error!.localizedDescription)
             }
         }
         return

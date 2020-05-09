@@ -9,18 +9,18 @@
 import SwiftUI
 
 struct MyView: View {
-    @EnvironmentObject var settings: UserStatus
+    @EnvironmentObject var settings: UserState
     @ObservedObject var viewModel = MyViewModel()
     @State var showAddSheetView = false
     
     var body: some View {
         NavigationView {
             List {
-                ForEach(viewModel.myModel, id: \.id) {
+                ForEach(viewModel.myOrders, id: \.id) {
                     model in Text(model.name)
                 }
             }
-            .navigationBarTitle(Text("Models: \(viewModel.myModel.count)"))
+            .navigationBarTitle(Text("Models: \(viewModel.myOrders.count)"))
             .navigationBarItems(
                 leading:
                 Button(action: {

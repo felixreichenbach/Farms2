@@ -16,8 +16,8 @@
 		632BEC8A2455D7BA00E9192C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 632BEC892455D7BA00E9192C /* Preview Assets.xcassets */; };
 		632F5F132456176400775FE3 /* MyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632F5F122456176400775FE3 /* MyViewModel.swift */; };
 		632F5F152456BBEE00775FE3 /* MyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632F5F142456BBEE00775FE3 /* MyView.swift */; };
-		632F5F172456C18F00775FE3 /* MyModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632F5F162456C18F00775FE3 /* MyModel.swift */; };
-		63C2F5A82458BA9D00B4083F /* UserStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C2F5A72458BA9D00B4083F /* UserStatus.swift */; };
+		632F5F172456C18F00775FE3 /* MyOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632F5F162456C18F00775FE3 /* MyOrder.swift */; };
+		63C2F5A82458BA9D00B4083F /* ContentState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C2F5A72458BA9D00B4083F /* ContentState.swift */; };
 		63FA63972458B34E00684F1D /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63FA63962458B34E00684F1D /* Constants.swift */; };
 		FFDE7442436DEAA61644131C /* Pods_Farms2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBC78AF74FCBFEBF9D581863 /* Pods_Farms2.framework */; };
 /* End PBXBuildFile section */
@@ -34,8 +34,8 @@
 		632BEC8E2455D7BA00E9192C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		632F5F122456176400775FE3 /* MyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyViewModel.swift; sourceTree = "<group>"; };
 		632F5F142456BBEE00775FE3 /* MyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyView.swift; sourceTree = "<group>"; };
-		632F5F162456C18F00775FE3 /* MyModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyModel.swift; sourceTree = "<group>"; };
-		63C2F5A72458BA9D00B4083F /* UserStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserStatus.swift; sourceTree = "<group>"; };
+		632F5F162456C18F00775FE3 /* MyOrder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyOrder.swift; sourceTree = "<group>"; };
+		63C2F5A72458BA9D00B4083F /* ContentState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentState.swift; sourceTree = "<group>"; };
 		63FA63962458B34E00684F1D /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		A1FC6A365E70E7984FB7BDB1 /* Pods-Farms2.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Farms2.debug.xcconfig"; path = "Target Support Files/Pods-Farms2/Pods-Farms2.debug.xcconfig"; sourceTree = "<group>"; };
 		C83A4A7AB13EC546E83CF8BE /* Pods-Farms2.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Farms2.release.xcconfig"; path = "Target Support Files/Pods-Farms2/Pods-Farms2.release.xcconfig"; sourceTree = "<group>"; };
@@ -79,11 +79,11 @@
 				632BEC802455D7B700E9192C /* AppDelegate.swift */,
 				632BEC822455D7B700E9192C /* SceneDelegate.swift */,
 				632BEC842455D7B700E9192C /* ContentView.swift */,
-				63C2F5A72458BA9D00B4083F /* UserStatus.swift */,
+				63C2F5A72458BA9D00B4083F /* ContentState.swift */,
 				632BEC862455D7BA00E9192C /* Assets.xcassets */,
 				632BEC8E2455D7BA00E9192C /* Info.plist */,
 				632BEC882455D7BA00E9192C /* Preview Content */,
-				632F5F162456C18F00775FE3 /* MyModel.swift */,
+				632F5F162456C18F00775FE3 /* MyOrder.swift */,
 				632F5F142456BBEE00775FE3 /* MyView.swift */,
 				632F5F122456176400775FE3 /* MyViewModel.swift */,
 				630FF3302456EAB500DB4297 /* MySheetView.swift */,
@@ -232,10 +232,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				632BEC812455D7B700E9192C /* AppDelegate.swift in Sources */,
-				632F5F172456C18F00775FE3 /* MyModel.swift in Sources */,
+				632F5F172456C18F00775FE3 /* MyOrder.swift in Sources */,
 				632BEC832455D7B700E9192C /* SceneDelegate.swift in Sources */,
 				6314DD602458A34A00B6C426 /* LoginView.swift in Sources */,
-				63C2F5A82458BA9D00B4083F /* UserStatus.swift in Sources */,
+				63C2F5A82458BA9D00B4083F /* ContentState.swift in Sources */,
 				630FF3312456EAB500DB4297 /* MySheetView.swift in Sources */,
 				632F5F152456BBEE00775FE3 /* MyView.swift in Sources */,
 				632F5F132456176400775FE3 /* MyViewModel.swift in Sources */,

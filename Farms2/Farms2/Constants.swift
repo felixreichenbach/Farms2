@@ -18,9 +18,8 @@ struct Constants {
     // **** Replace the AUTH_URL and REALM_URL strings with the fully qualified versions of
     // **** address of your ROS server, e.g.: "http://127.0.0.1:9080" and "realm://127.0.0.1:9080"
 
-    static let MY_INSTANCE_ADDRESS = "YOUR-REALM-NAME.cloud.realm.io" // <- update this
+    static let MY_REALM_APP = "YOUR-APP-ID"
+    static let MY_INSTANCE_BASE_URL = "https://realm-dev.mongodb.com" // <- update this
 
-    static let AUTH_URL  = URL(string: "https://\(MY_INSTANCE_ADDRESS)")!
-    static let REALM_URL = URL(string: "realms://\(MY_INSTANCE_ADDRESS)/~/userRealm")!
 }
 

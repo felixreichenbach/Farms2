@@ -1,4 +1,4 @@
-# Farms2
+# Farms2 (BETA!)
 
 ## Prerequisits (Requires Updating!)
 

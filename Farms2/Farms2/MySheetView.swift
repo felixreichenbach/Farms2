@@ -24,19 +24,27 @@ struct AddSheetView: View {
     }
     
     var body: some View {
-        VStack {
-            Text("Add New Model")
-                .font(.headline)
-            TextField("Enter Text", text: $inputText)
-                .textFieldStyle(RoundedBorderTextFieldStyle())
-                .padding()
-            Button(action: {
-                self.viewModel.addModel(text: self.inputText)
-                self.showSheetView.toggle()
-            }) {
-                Text("Save")
+        NavigationView {
+            VStack {
+                Text("Add New Order")
                     .font(.headline)
-            }.disabled(validated)
+                TextField("Enter Text", text: $inputText)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .padding()
+                Button(action: {
+                    self.viewModel.addOrder(text: self.inputText)
+                    self.showSheetView.toggle()
+                }) {
+                    Text("Save")
+                        .font(.headline)
+                }.disabled(validated)
+            }
+            .navigationBarTitle(Text("New Order Form"), displayMode: .inline)
+                .navigationBarItems(trailing: Button(action: {
+                    self.showSheetView = false
+                }) {
+                    Text("Done").bold()
+                })
         }
     }
 }

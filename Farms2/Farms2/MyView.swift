@@ -16,9 +16,10 @@ struct MyView: View {
     var body: some View {
         NavigationView {
             List {
-                ForEach(viewModel.myOrders, id: \._id) {
+                ForEach(viewModel.myOrders.freeze(), id: \._id) {
                     model in Text(model.name)
                 }
+                .onDelete(perform: delete)
             }
             .navigationBarTitle(Text("Models: \(viewModel.myOrders.count)"))
             .navigationBarItems(
@@ -35,6 +36,11 @@ struct MyView: View {
             })
         }
     }
+    
+    func delete(at offsets: IndexSet) {
+        viewModel.removeOrder(offsets: offsets)
+    }
+    
 }
 
 struct View_Previews: PreviewProvider {

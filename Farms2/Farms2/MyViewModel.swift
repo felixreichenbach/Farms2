@@ -26,21 +26,33 @@ class MyViewModel: ObservableObject {
 
         self.realm = try! Realm(configuration: user.configuration(partitionValue: "partition"))
         self.myOrders = realm.objects(MyOrder.self)
-        self.initialize(realm: realm)
-    }
-    
-    func initialize(realm: Realm) {
-        notificationToken = realm.objects(MyOrder.self).observe{ _ in
-            self.refresh.toggle()
-            print("notified")
+        self.notificationToken =
+            realm.objects(MyOrder.self).observe{[weak self] (changes: RealmCollectionChange) in
+                self!.refresh.toggle()
+            print("notified: \(changes)")
         }
     }
     
-    func addModel(text: String) {
+    deinit {
+        notificationToken?.invalidate()
+    }
+    
+    
+    func addOrder(text: String) {
         let newOrder = MyOrder()
         newOrder.name = text
-        try! self.realm.write {
+        try! self.realm.write(withoutNotifying: [notificationToken!]) {
             self.realm.add(newOrder)
+        }
+    }
+    
+    func removeOrder(offsets: IndexSet) {
+        
+        let delOrder = myOrders[offsets.first!]
+
+        // Delete an object with a transaction
+        try! realm.write {
+            realm.delete(delOrder)
         }
     }
 

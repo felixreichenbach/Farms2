@@ -14,7 +14,7 @@ class MyOrder: Object {
     @objc dynamic var name: String = "Default"
     
     // Not sure if _partition is needed
-    @objc dynamic var _partition: String = "partition"
+    @objc dynamic var _partition: String = "Default"
     
     override static func primaryKey() -> String? {
         return "_id"

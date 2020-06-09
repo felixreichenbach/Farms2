@@ -9,7 +9,7 @@
 import Foundation
 import RealmSwift
 
-let app = RealmApp(Constants.MY_REALM_APP,
+let app = RealmApp(id: Constants.MY_REALM_APP,
                    configuration: AppConfiguration(baseURL: Constants.MY_INSTANCE_BASE_URL,
                                 transport: nil,
                                 localAppName: nil,
@@ -39,13 +39,14 @@ class AppState: ObservableObject {
     func login(username: String, password: String) {
         print("login")
         let credentials = AppCredentials.init(username: username, password: password)
-        app.login(withCredential: credentials) { (_, error) in
+        app.login(withCredential: credentials) { (user, error) in
             guard error == nil else {
                 DispatchQueue.main.async {
                     self.errorLabel = error!.localizedDescription
                 }
                 return
             }
+            print("user: \(app.currentUser()?.identity ?? "Default Value")")
             DispatchQueue.main.async {
                 self.loggedIn = true
                 self.errorLabel = ""
@@ -55,12 +56,29 @@ class AppState: ObservableObject {
     }
     
     func logout() {
-        app.logOut { (error) in
-                guard error == nil else {
-                    fatalError(error!.localizedDescription)
-                }
+        let group = DispatchGroup() // initialize
+
+        group.enter() // wait
+        app.logOut { (error: Error?) in
+            guard error == nil else {
+                fatalError("Error: \(error!.localizedDescription)")
             }
-        self.loggedIn = false
-        print("logout")
+            group.leave()
+        }
+        
+        group.notify(queue: .main) {
+            self.loggedIn = false
+            print("logout")
+        }
+        
+        
+        /*
+        app.logOut { (error: Error?) in
+            guard error == nil else {
+                fatalError("Error: \(error!.localizedDescription)")
+            }
+            self.loggedIn = false
+            print("logout")
+        }*/
     }
 }

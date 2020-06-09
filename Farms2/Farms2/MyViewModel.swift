@@ -24,7 +24,7 @@ class MyViewModel: ObservableObject {
             fatalError("Must be logged in to access this view")
         }
 
-        self.realm = try! Realm(configuration: user.configuration(partitionValue: "partition"))
+        self.realm = try! Realm(configuration: user.configuration(partitionValue: (app.currentUser()?.identity)! as String))
         self.myOrders = realm.objects(MyOrder.self)
         self.notificationToken =
             realm.objects(MyOrder.self).observe{[weak self] (changes: RealmCollectionChange) in
@@ -41,6 +41,7 @@ class MyViewModel: ObservableObject {
     func addOrder(text: String) {
         let newOrder = MyOrder()
         newOrder.name = text
+        newOrder._partition = (app.currentUser()?.identity!)! as String
         try! self.realm.write(withoutNotifying: [notificationToken!]) {
             self.realm.add(newOrder)
         }

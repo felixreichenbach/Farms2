@@ -41,7 +41,6 @@ class MyViewModel: ObservableObject {
     func addOrder(text: String) {
         let newOrder = MyOrder()
         newOrder.name = text
-        newOrder._partition = (app.currentUser()?.identity!)! as String
         try! self.realm.write(withoutNotifying: [notificationToken!]) {
             self.realm.add(newOrder)
         }

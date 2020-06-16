@@ -12,7 +12,7 @@
 - Change into the Farms2 folder: ```cd Farms2```
 - Update the pods ```pod update``` 
 - open farms2.xcworkspace with Xcode
-- Selet the Constants.swift file
+- Select the Constants.swift file
 - Add your Realm App ID here -> ```static let MY_REALM_APP = "YOUR-APP-ID" ```
 
 ## Demo (Requires Updating!)

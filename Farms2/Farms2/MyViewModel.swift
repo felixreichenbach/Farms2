@@ -7,54 +7,57 @@
 //
 
 import Foundation
+import SwiftUI
 import RealmSwift
 
 class MyViewModel: ObservableObject {
-
+    @EnvironmentObject var settings: AppState
     @Published var refresh = true
     
-    let myModel: Results<MyModel>
+    let myOrders: Results<MyOrder>
     let realm: Realm
     
-    var notificationToken: NotificationToken? = nil
+    private var notificationToken: NotificationToken? = nil
 
     init() {
-        // Get the synced Realm
-        let config = SyncUser.current?.configuration(realmURL: Constants.REALM_URL, fullSynchronization: true, enableSSLValidation: true)
-        self.realm = try! Realm(configuration: config!)
-        // Query Realm for all MyModels
-        self.myModel = realm.objects(MyModel.self)
-        
-        // Observe Realm Notifications
-        self.notificationToken = realm.observe { notification, realm in
-            print("Realm notification: \(notification)")
-            self.refresh.toggle()
+        guard let user = app.currentUser() else {
+            fatalError("Must be logged in to access this view")
+        }
+
+        self.realm = try! Realm(configuration: user.configuration(partitionValue: (app.currentUser()?.identity)! as String))
+        self.myOrders = realm.objects(MyOrder.self)
+        self.notificationToken =
+            realm.objects(MyOrder.self).observe{[weak self] (changes: RealmCollectionChange) in
+                self!.refresh.toggle()
+            print("notified: \(changes)")
         }
     }
     
     deinit {
-        self.notificationToken?.invalidate()
-        print("deinit")
+        notificationToken?.invalidate()
     }
     
-    func addModel(text: String) {
-        let newModel = MyModel()
-        newModel.name = text
-        // Persist your data easily
-        try! realm.write(withoutNotifying: [notificationToken!]) {
-            self.realm.add(newModel)
+    
+    func addOrder(text: String) {
+        let newOrder = MyOrder()
+        newOrder.name = text
+        try! self.realm.write(withoutNotifying: [notificationToken!]) {
+            self.realm.add(newOrder)
+        }
+    }
+    
+    func removeOrder(offsets: IndexSet) {
+        
+        let delOrder = myOrders[offsets.first!]
+
+        // Delete an object with a transaction
+        try! realm.write {
+            realm.delete(delOrder)
         }
     }
 
     
     func cleanModels() {
-        print("cleanModels function not yet implemented")
-        // Deleting object ins realm files throws an error
-        // Feature: https://github.com/realm/realm-cocoa/pull/6231
-
-        /*
-        try! self.realm.write {
-            realm.deleteAll()
-        }*/
+        // Stub
     }
 }

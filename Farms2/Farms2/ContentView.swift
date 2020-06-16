@@ -9,15 +9,19 @@
 import SwiftUI
 
 struct ContentView: View {
-    @EnvironmentObject var settings: UserStatus
+    @EnvironmentObject var appState: AppState
     
     var body: some View {
-        Group {
-            if (settings.loggedIn) {
-                MyView(viewModel: MyViewModel())
-            } else {
-                LoginView()
+        ZStack{
+            Group {
+                if (appState.loggedIn) {
+                    MyView(viewModel: MyViewModel())
+                } else {
+                    LoginView()
+                }
             }
+            SplashScreen()
+                .opacity(appState.showSplash ? 1 : 0)
         }
     }
 }

@@ -10,7 +10,7 @@ import SwiftUI
 
 struct LoginView: View {
     
-    @EnvironmentObject var settings: UserStatus
+    @EnvironmentObject var settings: AppState
     
     @State var username: String = "foo@bar.com"
     @State var password: String = "password"
@@ -25,14 +25,14 @@ struct LoginView: View {
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .padding(.bottom, 20)
             Button(action: {
-                self.settings.login(username: self.username, password: self.password, register: false)
+                self.settings.login(username: self.username, password: self.password)
             }) {
                 Text("Login")
             }
             .font(.headline)
             .padding(.bottom, 20)
             Button(action: {
-                self.settings.login(username: self.username, password: self.password, register: true)
+                self.settings.signup(username: self.username, password: self.password)
             }) {
                 Text("Signup")
             }

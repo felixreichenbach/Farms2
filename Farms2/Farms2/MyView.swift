@@ -9,18 +9,19 @@
 import SwiftUI
 
 struct MyView: View {
-    @EnvironmentObject var settings: UserStatus
+    @EnvironmentObject var settings: AppState
     @ObservedObject var viewModel = MyViewModel()
     @State var showAddSheetView = false
     
     var body: some View {
         NavigationView {
             List {
-                ForEach(viewModel.myModel, id: \.id) {
+                ForEach(viewModel.myOrders.freeze(), id: \._id) {
                     model in Text(model.name)
                 }
+                .onDelete(perform: delete)
             }
-            .navigationBarTitle(Text("Models: \(viewModel.myModel.count)"))
+            .navigationBarTitle(Text("Models: \(viewModel.myOrders.count)"))
             .navigationBarItems(
                 leading:
                 Button(action: {
@@ -35,6 +36,11 @@ struct MyView: View {
             })
         }
     }
+    
+    func delete(at offsets: IndexSet) {
+        viewModel.removeOrder(offsets: offsets)
+    }
+    
 }
 
 struct View_Previews: PreviewProvider {

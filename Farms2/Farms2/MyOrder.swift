@@ -9,7 +9,11 @@
 import Foundation
 import RealmSwift
 
-class MyModel: Object {
-    @objc dynamic var id = UUID().uuidString
+class MyOrder: Object {
+    @objc dynamic var _id: ObjectId = ObjectId.generate()
     @objc dynamic var name: String = "Default"
+    
+    override static func primaryKey() -> String? {
+        return "_id"
+    }
 }

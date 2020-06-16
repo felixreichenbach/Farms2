@@ -18,6 +18,7 @@ let app = RealmApp(id: Constants.MY_REALM_APP,
 class AppState: ObservableObject {
     @Published var loggedIn = false
     @Published var errorLabel = ""
+    @Published var showSplash = false
     
     init() {
         if (app.currentUser() == nil) {
@@ -38,10 +39,15 @@ class AppState: ObservableObject {
     
     func login(username: String, password: String) {
         print("login")
+        DispatchQueue.main.async {
+            self.showSplash = true
+        }
         let credentials = AppCredentials.init(username: username, password: password)
         app.login(withCredential: credentials) { (user, error) in
             guard error == nil else {
+                
                 DispatchQueue.main.async {
+                    self.showSplash = false
                     self.errorLabel = error!.localizedDescription
                 }
                 return
@@ -50,6 +56,7 @@ class AppState: ObservableObject {
             DispatchQueue.main.async {
                 self.loggedIn = true
                 self.errorLabel = ""
+                self.showSplash = false
                 return
             }
         }
@@ -70,15 +77,5 @@ class AppState: ObservableObject {
             self.loggedIn = false
             print("logout")
         }
-        
-        
-        /*
-        app.logOut { (error: Error?) in
-            guard error == nil else {
-                fatalError("Error: \(error!.localizedDescription)")
-            }
-            self.loggedIn = false
-            print("logout")
-        }*/
     }
 }

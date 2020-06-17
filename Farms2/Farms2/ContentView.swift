@@ -16,12 +16,12 @@ struct ContentView: View {
             Group {
                 if (appState.loggedIn) {
                     MyView(viewModel: MyViewModel())
+                } else if (appState.showSplash){
+                    SplashScreen()
                 } else {
                     LoginView()
                 }
             }
-            SplashScreen()
-                .opacity(appState.showSplash ? 1 : 0)
         }
     }
 }

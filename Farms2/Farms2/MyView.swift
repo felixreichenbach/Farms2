@@ -32,7 +32,7 @@ struct MyView: View {
                     self.showAddSheetView.toggle()
                 }) {Text("Add")}
                     .sheet(isPresented: $showAddSheetView) {
-                        AddSheetView(viewModel: self.viewModel,showSheetView: self.$showAddSheetView)
+                        AddOrderView(viewModel: self.viewModel)
             })
         }
     }

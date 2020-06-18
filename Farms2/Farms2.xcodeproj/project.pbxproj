@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		630FF3312456EAB500DB4297 /* MySheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 630FF3302456EAB500DB4297 /* MySheetView.swift */; };
+		630FF3312456EAB500DB4297 /* AddOrderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 630FF3302456EAB500DB4297 /* AddOrderView.swift */; };
 		6314DD602458A34A00B6C426 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6314DD5F2458A34A00B6C426 /* LoginView.swift */; };
 		632BEC812455D7B700E9192C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632BEC802455D7B700E9192C /* AppDelegate.swift */; };
 		632BEC832455D7B700E9192C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632BEC822455D7B700E9192C /* SceneDelegate.swift */; };
@@ -24,7 +24,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		630FF3302456EAB500DB4297 /* MySheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MySheetView.swift; sourceTree = "<group>"; };
+		630FF3302456EAB500DB4297 /* AddOrderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddOrderView.swift; sourceTree = "<group>"; };
 		6314DD5F2458A34A00B6C426 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		632BEC7D2455D7B700E9192C /* Farms2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Farms2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		632BEC802455D7B700E9192C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -88,7 +88,7 @@
 				632F5F162456C18F00775FE3 /* MyOrder.swift */,
 				632F5F142456BBEE00775FE3 /* MyView.swift */,
 				632F5F122456176400775FE3 /* MyViewModel.swift */,
-				630FF3302456EAB500DB4297 /* MySheetView.swift */,
+				630FF3302456EAB500DB4297 /* AddOrderView.swift */,
 				6314DD5F2458A34A00B6C426 /* LoginView.swift */,
 				634297E82493CBD400115B04 /* SplashScreen.swift */,
 			);
@@ -239,7 +239,7 @@
 				632BEC832455D7B700E9192C /* SceneDelegate.swift in Sources */,
 				6314DD602458A34A00B6C426 /* LoginView.swift in Sources */,
 				63C2F5A82458BA9D00B4083F /* AppState.swift in Sources */,
-				630FF3312456EAB500DB4297 /* MySheetView.swift in Sources */,
+				630FF3312456EAB500DB4297 /* AddOrderView.swift in Sources */,
 				634297E92493CBD400115B04 /* SplashScreen.swift in Sources */,
 				632F5F152456BBEE00775FE3 /* MyView.swift in Sources */,
 				632F5F132456176400775FE3 /* MyViewModel.swift in Sources */,

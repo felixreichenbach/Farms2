@@ -8,15 +8,14 @@
 
 import SwiftUI
 
-struct AddSheetView: View {
+struct AddOrderView: View {
     
-    @Binding var showSheetView: Bool
+    @Environment(\.presentationMode) var presentationMode
     @ObservedObject var viewModel: MyViewModel
     @State private var inputText: String = ""
     
-    init(viewModel: MyViewModel, showSheetView: Binding<Bool>) {
+    init(viewModel: MyViewModel) {
         self.viewModel = viewModel
-        self._showSheetView = showSheetView
     }
     
     private var validated: Bool {
@@ -33,7 +32,7 @@ struct AddSheetView: View {
                     .padding()
                 Button(action: {
                     self.viewModel.addOrder(text: self.inputText)
-                    self.showSheetView.toggle()
+                    self.presentationMode.wrappedValue.dismiss()
                 }) {
                     Text("Save")
                         .font(.headline)
@@ -41,7 +40,7 @@ struct AddSheetView: View {
             }
             .navigationBarTitle(Text("New Order Form"), displayMode: .inline)
                 .navigationBarItems(trailing: Button(action: {
-                    self.showSheetView = false
+                    self.presentationMode.wrappedValue.dismiss()
                 }) {
                     Text("Done").bold()
                 })
@@ -51,6 +50,6 @@ struct AddSheetView: View {
 
 struct AddSheetView_Previews: PreviewProvider {
     static var previews: some View {
-        AddSheetView(viewModel: MyViewModel(), showSheetView: .constant(true))
+        AddOrderView(viewModel: MyViewModel())
     }
 }

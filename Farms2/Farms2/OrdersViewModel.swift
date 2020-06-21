@@ -10,11 +10,11 @@ import Foundation
 import SwiftUI
 import RealmSwift
 
-class MyViewModel: ObservableObject {
+class OrdersViewModel: ObservableObject {
     @EnvironmentObject var settings: AppState
     @Published var refresh = true
     
-    let myOrders: Results<MyOrder>
+    let myOrders: Results<Order>
     let realm: Realm
     
     private var notificationToken: NotificationToken? = nil
@@ -23,11 +23,11 @@ class MyViewModel: ObservableObject {
         guard let user = app.currentUser() else {
             fatalError("Must be logged in to access this view")
         }
-
+        // Open realm with logged in user and user id as partition value
         self.realm = try! Realm(configuration: user.configuration(partitionValue: (app.currentUser()?.identity)! as String))
-        self.myOrders = realm.objects(MyOrder.self)
+        self.myOrders = realm.objects(Order.self)
         self.notificationToken =
-            realm.objects(MyOrder.self).observe{[weak self] (changes: RealmCollectionChange) in
+            realm.objects(Order.self).observe{[weak self] (changes: RealmCollectionChange) in
                 self!.refresh.toggle()
             print("notified: \(changes)")
         }
@@ -39,7 +39,7 @@ class MyViewModel: ObservableObject {
     
     
     func addOrder(text: String) {
-        let newOrder = MyOrder()
+        let newOrder = Order()
         newOrder.name = text
         try! self.realm.write(withoutNotifying: [notificationToken!]) {
             self.realm.add(newOrder)

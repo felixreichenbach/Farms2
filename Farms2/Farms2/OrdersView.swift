@@ -8,9 +8,9 @@
 
 import SwiftUI
 
-struct MyView: View {
+struct OrdersView: View {
     @EnvironmentObject var settings: AppState
-    @ObservedObject var viewModel = MyViewModel()
+    @ObservedObject var viewModel = OrdersViewModel()
     @State var showAddSheetView = false
     
     var body: some View {
@@ -31,9 +31,10 @@ struct MyView: View {
                 Button(action: {
                     self.showAddSheetView.toggle()
                 }) {Text("Add")}
-                    .sheet(isPresented: $showAddSheetView) {
-                        AddOrderView(viewModel: self.viewModel)
-            })
+            )
+            .sheet(isPresented: self.$showAddSheetView) {
+                AddOrderView(viewModel: self.viewModel)
+            }
         }
     }
     
@@ -45,6 +46,6 @@ struct MyView: View {
 
 struct View_Previews: PreviewProvider {
     static var previews: some View {
-        MyView()
+        OrdersView()
     }
 }

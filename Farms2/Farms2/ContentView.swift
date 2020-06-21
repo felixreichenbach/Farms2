@@ -15,7 +15,7 @@ struct ContentView: View {
         ZStack{
             Group {
                 if (appState.loggedIn) {
-                    MyView(viewModel: MyViewModel())
+                    OrdersView(viewModel: OrdersViewModel())
                 } else if (appState.showSplash){
                     SplashScreen()
                 } else {

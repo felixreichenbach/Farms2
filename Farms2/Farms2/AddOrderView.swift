@@ -11,10 +11,10 @@ import SwiftUI
 struct AddOrderView: View {
     
     @Environment(\.presentationMode) var presentationMode
-    @ObservedObject var viewModel: MyViewModel
+    @ObservedObject var viewModel: OrdersViewModel
     @State private var inputText: String = ""
     
-    init(viewModel: MyViewModel) {
+    init(viewModel: OrdersViewModel) {
         self.viewModel = viewModel
     }
     
@@ -50,6 +50,6 @@ struct AddOrderView: View {
 
 struct AddSheetView_Previews: PreviewProvider {
     static var previews: some View {
-        AddOrderView(viewModel: MyViewModel())
+        AddOrderView(viewModel: OrdersViewModel())
     }
 }

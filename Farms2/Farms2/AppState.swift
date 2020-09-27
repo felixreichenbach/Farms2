@@ -9,11 +9,11 @@
 import Foundation
 import RealmSwift
 
-let app = RealmApp(id: Constants.MY_REALM_APP,
-                   configuration: AppConfiguration(baseURL: Constants.MY_INSTANCE_BASE_URL,
-                                transport: nil,
-                                localAppName: nil,
-                                localAppVersion: nil))
+let app = App(id: Constants.MY_REALM_APP,
+              configuration: AppConfiguration(baseURL: Constants.MY_INSTANCE_BASE_URL,
+                                              transport: nil,
+                                              localAppName: nil,
+                                              localAppVersion: nil))
 
 class AppState: ObservableObject {
     @Published var loggedIn = false
@@ -31,8 +31,8 @@ class AppState: ObservableObject {
     
     func signup(username: String, password: String) {
         print("signup")
-        let emailPassProvider = app.usernamePasswordProviderClient()
-        emailPassProvider.registerEmail(username, password: password) { (result) in
+        let emailPassProvider = app.emailPasswordAuth()
+        emailPassProvider.registerUser(email: username, password: password){ (result) in
             self.login(username: username, password: password)
         }
     }
@@ -42,8 +42,8 @@ class AppState: ObservableObject {
         DispatchQueue.main.async {
             self.showSplash = true
         }
-        let credentials = AppCredentials.init(username: username, password: password)
-        app.login(withCredential: credentials) { (user, error) in
+        let credentials = Credentials(email: username, password: password)
+        app.login(credentials: credentials) { (user, error) in
             guard error == nil else {
                 
                 DispatchQueue.main.async {
@@ -52,7 +52,7 @@ class AppState: ObservableObject {
                 }
                 return
             }
-            print("user: \(app.currentUser()?.identity ?? "Default Value")")
+            print("user: \(app.currentUser()?.id ?? "Default Value")")
             DispatchQueue.main.async {
                 self.loggedIn = true
                 self.errorLabel = ""
@@ -64,9 +64,9 @@ class AppState: ObservableObject {
     
     func logout() {
         let group = DispatchGroup() // initialize
-
+        
         group.enter() // wait
-        app.logOut { (error: Error?) in
+        app.currentUser()?.logOut() { (error: Error?) in
             guard error == nil else {
                 fatalError("Error: \(error!.localizedDescription)")
             }

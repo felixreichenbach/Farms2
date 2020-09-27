@@ -1,4 +1,4 @@
-# MongoDB Stitch Checkout App
+# MongoDB Stitch Checkout App -> To Be Adjusted for REALM!
 
 This repository contains a Stitch application template "stitch_checkout".
 This app consists of a web gui which allows creating new purchase orders and a Stitch trigger, which reacts on inserts into the "orders" collection, transforms them and inserts them into the "po" collection.

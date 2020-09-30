@@ -24,12 +24,12 @@
             <p class="lead">Welcome to the MongoDB Realm Farms 2 Web edition!<br>Please choose which items you want to
                 order and fill in the address details.<br>Happy shopping!
         </div>
-            <form class="form-signin">
+            <form class="form-signin" id="loginForm">
                 <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-                <label for="inputEmail" class="sr-only">Email address</label>
-                <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
-                <label for="inputPassword" class="sr-only">Password</label>
-                <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+                <label for="loginEmail" class="sr-only">Email address</label>
+                <input type="email" id="loginEmail" class="form-control" placeholder="Email address" autocomplete="on" required autofocus>
+                <label for="password" class="sr-only">Password</label>
+                <input type="password" id="password" class="form-control" placeholder="Password" autocomplete="on" required>
                 <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
             </form>
         <div class="row">

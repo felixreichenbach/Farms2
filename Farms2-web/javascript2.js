@@ -39,13 +39,22 @@ $(document).ready(function () {
 
     // Login User
 
-    $('.form-signin').submit(async function (event) {
+    $("#loginForm").submit(function (event) {
+        var email = $("#loginEmail").val();
+        var password = $("#password").val();
+        console.log("email: ", email)
+        console.log("password: ", password)
         event.preventDefault();
-        loginEmailPassword("foo@bar.com", "password")
+
+        loginEmailPassword(email, password)
             .then(user => {
-                console.log("Successfully logged in!", user)
-                $('.form-signin').hide();
-                $('#orderForm').show();
+                if (user == undefined) {
+                    console.log("Login Failed", user)
+                } else {
+                    console.log("Successfully logged in!", user)
+                    $('.form-signin').hide();
+                    $('#orderForm').show();
+                }
             })
     });
 

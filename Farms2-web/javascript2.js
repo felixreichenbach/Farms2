@@ -42,8 +42,6 @@ $(document).ready(function () {
     $("#loginForm").submit(function (event) {
         var email = $("#loginEmail").val();
         var password = $("#password").val();
-        console.log("email: ", email)
-        console.log("password: ", password)
         event.preventDefault();
 
         loginEmailPassword(email, password)

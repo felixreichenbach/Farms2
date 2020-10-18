@@ -20,11 +20,11 @@ class MyViewModel: ObservableObject {
     var notificationToken: NotificationToken? = nil
 
     init() {
-        guard let user = app.currentUser() else {
+        guard let user = app.currentUser else {
             fatalError("Must be logged in to access this view")
         }
 
-        self.realm = try! Realm(configuration: user.configuration(partitionValue: (app.currentUser()?.id)! as String))
+        self.realm = try! Realm(configuration: user.configuration(partitionValue: (app.currentUser?.id)! as String))
         self.myOrders = realm.objects(MyOrder.self)
         self.notificationToken =
             realm.objects(MyOrder.self).observe{[weak self] (changes: RealmCollectionChange) in

@@ -21,7 +21,7 @@ class AppState: ObservableObject {
     @Published var showSplash = false
     
     init() {
-        if (app.currentUser() == nil) {
+        if (app.currentUser == nil) {
             self.loggedIn = false
         } else {
             self.loggedIn = true
@@ -31,7 +31,7 @@ class AppState: ObservableObject {
     
     func signup(username: String, password: String) {
         print("signup")
-        let emailPassProvider = app.emailPasswordAuth()
+        let emailPassProvider = app.emailPasswordAuth
         emailPassProvider.registerUser(email: username, password: password){ (result) in
             self.login(username: username, password: password)
         }
@@ -42,22 +42,23 @@ class AppState: ObservableObject {
         DispatchQueue.main.async {
             self.showSplash = true
         }
-        let credentials = Credentials(email: username, password: password)
-        app.login(credentials: credentials) { (user, error) in
-            guard error == nil else {
+        let credentials = Credentials.emailPassword(email: username, password: password)
+        app.login(credentials: credentials) { (result) in
+            switch result {
+            case .success(let username):
+                print("user: \(username)")
+                DispatchQueue.main.async {
+                    self.loggedIn = true
+                    self.errorLabel = ""
+                    self.showSplash = false
+                    return
+                }
                 
+            case .failure(let error):
                 DispatchQueue.main.async {
                     self.showSplash = false
-                    self.errorLabel = error!.localizedDescription
+                    self.errorLabel = error.localizedDescription
                 }
-                return
-            }
-            print("user: \(app.currentUser()?.id ?? "Default Value")")
-            DispatchQueue.main.async {
-                self.loggedIn = true
-                self.errorLabel = ""
-                self.showSplash = false
-                return
             }
         }
     }
@@ -66,7 +67,7 @@ class AppState: ObservableObject {
         let group = DispatchGroup() // initialize
         
         group.enter() // wait
-        app.currentUser()?.logOut() { (error: Error?) in
+        app.currentUser?.logOut() { (error: Error?) in
             guard error == nil else {
                 fatalError("Error: \(error!.localizedDescription)")
             }

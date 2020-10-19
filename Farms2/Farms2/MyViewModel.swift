@@ -18,20 +18,46 @@ class MyViewModel: ObservableObject {
     let realm: Realm
     
     var notificationToken: NotificationToken? = nil
-
+    
     init() {
         guard let user = app.currentUser else {
             fatalError("Must be logged in to access this view")
         }
-
+        
         self.realm = try! Realm(configuration: user.configuration(partitionValue: (app.currentUser?.id)! as String))
         self.myOrders = realm.objects(MyOrder.self)
-        self.notificationToken =
-            realm.objects(MyOrder.self).observe{[weak self] (changes: RealmCollectionChange) in
-                self!.refresh.toggle()
-            print("notified: \(changes)")
+        
+        // Observe collection notifications. Keep a strong
+        // reference to the notification token or the
+        // observation will stop.
+        self.notificationToken = self.myOrders.observe { [weak self] (changes: RealmCollectionChange) in
+            switch changes {
+            case .initial:
+                // Results are now populated and can be accessed without blocking the UI
+                self?.refresh.toggle()
+                print("notified: \(changes)")
+            case .update(_, let deletions, let insertions, let modifications):
+                // Query results have changed, so apply them to the UITableView
+                self?.refresh.toggle()
+                print("notified: \(changes)")
+                // Always apply updates in the following order: deletions, insertions, then modifications.
+                // Handling insertions before deletions may result in unexpected behavior.
+                /*
+                 tableView.deleteRows(at: deletions.map({ IndexPath(row: $0, section: 0)}),
+                 with: .automatic)
+                 tableView.insertRows(at: insertions.map({ IndexPath(row: $0, section: 0) }),
+                 with: .automatic)
+                 tableView.reloadRows(at: modifications.map({ IndexPath(row: $0, section: 0) }),
+                 with: .automatic)
+                 tableView.endUpdates()
+                 */
+            case .error(let error):
+                // An error occurred while opening the Realm file on the background worker thread
+                fatalError("\(error)")
+            }
         }
     }
+    
     
     deinit {
         notificationToken?.invalidate()
@@ -49,13 +75,13 @@ class MyViewModel: ObservableObject {
     func removeOrder(offsets: IndexSet) {
         
         let delOrder = myOrders[offsets.first!]
-
+        
         // Delete an object with a transaction
         try! realm.write {
             realm.delete(delOrder)
         }
     }
-
+    
     
     func cleanModels() {
         // Stub

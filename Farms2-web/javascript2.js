@@ -5,7 +5,7 @@ var res = hostname.split(".");
 //console.log(res[0])
 
 // Initialize Realm App client with App ID retrieved from URL
-const app = new Realm.App({ id: res[0] });
+const app = new Realm.App({ id: 'farms2-hbvuz' });
 
 async function loginEmailPassword(email, password) {
     // Create a credential
@@ -26,7 +26,7 @@ $(document).ready(function () {
 
     // Check if a user is logged in
     if (app.currentUser) {
-        $('.form-signin').hide();
+        $('#login').hide();
         $('#orderForm').show();
     }
 
@@ -40,7 +40,7 @@ $(document).ready(function () {
             if (app.currentUser) {
                 console.log("Successfully logged in!", user)
                 $('#loginError').text('');
-                $('.form-signin').hide();
+                $('#login').hide();
                 $('#orderForm').show();
             } else {
                 $('#loginError').text('Login failed!');
@@ -52,7 +52,7 @@ $(document).ready(function () {
     $('#logout').click(async function () {
         console.log("logout: ", app.currentUser._profile.email)
         await app.currentUser.logOut();
-        $('.form-signin').show();
+        $('#login').show();
         $('#orderForm').hide();
     })
 

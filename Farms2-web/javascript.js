@@ -5,8 +5,8 @@ var res = hostname.split(".");
 //console.log(res[0])
 
 // Initialize Realm App client with App ID retrieved from URL
-const app = new Realm.App({ id: res[0] });
-var mongo;
+const app = new Realm.App({ id: "farms2-hbvuz" });
+var mongodb;
 var mongoCollection;
 
 async function loginEmailPassword(email, password) {
@@ -16,13 +16,15 @@ async function loginEmailPassword(email, password) {
     try {
         // Authenticate the user
         const user = await app.logIn(credentials);
+        console.log("user: ", user)
         // `App.currentUser` updates to match the logged in user
         console.assert(user.id === app.currentUser.id)
-        mongo = app.services.mongodb("mongodb-atlas");
-        mongoCollection = mongo.db("demo").collection("pos");
+
+        mongodb = app.currentUser.mongoClient("mongodb-atlas");
+        mongoCollection = mongodb.db("Farms2").collection("MyOrder");
         return user
     } catch (err) {
-        //console.error("Failed to log in", err);
+        console.error("Failed to log in", err);
     }
 }
 
@@ -43,7 +45,7 @@ $(document).ready(function () {
             var password = $("#password").val();
             event.preventDefault();
 
-            loginEmailPassword(email, password).then(user => {
+            loginEmailPassword(email, password).then((user) => {
                 if (app.currentUser) {
                     console.log("Successfully logged in!", user)
                     $('#loginError').text('');
@@ -105,8 +107,10 @@ $(document).ready(function () {
                 po['lineItems'] = lineItems
                 po['owner_id'] = app.currentUser.id
                 console.log(JSON.stringify(po))
+                var posimple = {"_id": new stitch.BSON.ObjectId(), "_partition": app.currentUser.id, "name": "Farms2 Web"};
+                console.log("object: ",posimple);
 
-                await mongoCollection.insertOne(po).then(success => {
+                await mongoCollection.insertOne(posimple).then(success => {
                     $("#alerts").append(`
                             <div class="alert alert-success mx-auto">
                                 <strong>Success!</strong> Order successfully submitted!

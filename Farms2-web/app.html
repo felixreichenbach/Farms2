@@ -1,15 +1,42 @@
 <html>
 
-<head></head>
+<head>
+    <link rel="stylesheet" href="app.css">
+
+</head>
 
 <body>
-    <div id="counter">
-        <p>{{ message }}</p>
-        <button v-on:click="reverseMessage">Reverse Message</button>
+
+    <div id="loginForm">
+        <form @submit.prevent="login">
+            <ul>
+                <li>
+                    <label for="name">Username:</label>
+                    <input type="text" name="username" v-model="input.username" placeholder="Username"
+                        autocomplete="username">
+                </li>
+                <li>
+                    <label for="name">Password:</label>
+                    <input type="password" name="password" v-model="input.password" placeholder="Password"
+                        autocomplete="current-password">
+                </li>
+                <li>
+                    <button type="submit">Login</button>
+                </li>
+                <li>
+                    <p>{{ input.status }}</p>
+                </li>
+            </ul>
+        </form>
+
     </div>
 
+
     <script src="https://unpkg.com/vue@next"></script>
+    <!-- Realm SDK -->
+    <script src="https://unpkg.com/realm-web@1.0.0/dist/bundle.iife.js"></script>
     <script src="app.js"></script>
+
 </body>
 
 </html>

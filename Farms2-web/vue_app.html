@@ -2,15 +2,13 @@
 
 <head>
     <link rel="stylesheet" href="vue_app.css">
-
 </head>
 
 <body>
     <div id="app">
-        <profile></profile>
-        <login-form></login-form>
+        <profile v-if="isLoggedIn" :name="name"></profile>
+        <login-form v-if="!isLoggedIn" :isLoggedIn="isLoggedIn" @login="login"></login-form>
     </div>
-
 
     <script src="https://unpkg.com/vue@next"></script>
     <!-- Realm SDK -->

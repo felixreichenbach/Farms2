@@ -1,42 +1,56 @@
 const RootComponent = {
     data() {
-        return { count: 4 }
+        return {
+            isLoggedIn: false,
+            name: "Felix"
+        }
+    },
+    methods: {
+        login() {
+            console.log("Logged In!")
+            this.isLoggedIn = true
+        }
     }
 }
 
 const app = Vue.createApp(RootComponent)
 
 app.component('profile', {
-    data() {
-        return {
-            isLoggedIn: true,
-            name: "Felix"
-        }
-    },
+    props: ['name'],
     template: `
-    <p v-if="isLoggedIn">
-      Email: {{ name }}
-    </p>`
+    <p>User: {{ name }}</p>`
 })
 
 app.component('loginForm', {
     data() {
         return {
-            isLoggedIn: true,
-            name: "Agnes"
+            email: null,
+            password: null
+        }
+
+    },
+    props: ['isLoggedIn'],
+    methods: {
+        handleSubmit(e) {
+            console.log(JSON.stringify(e))
+            if (this.email && this.password) {
+                this.$emit('login')
+            } else {
+                console.log("Form Incomplete")
+            }
+
         }
     },
     template: `
-    <form v-if="isLoggedIn">
+    <form @submit.prevent="handleSubmit">
         <label for="loginEmail">Email</label>
-        <input type="email" id="loginEmail" placeholder="Email Address">
+        <input type="email" id="email" v-model="email" placeholder="Email Address" autocomplete="username">
         <label for="password">Password</label>
-        <input type="password" id="password" placeholder="Password">
+        <input type="password" id="password" v-model="password" placeholder="Password" autocomplete="current-password">
         <button id="loginButton" type="submit">Sign in</button>
         <p id="loginError"></p>
     </form>`
 })
-
 
 const vm = app.mount('#app')
 

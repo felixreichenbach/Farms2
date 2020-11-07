@@ -8,5 +8,5 @@ target 'Farms2' do
   # Pods for Farms2
   use_modular_headers!
   # Pods for Farms
-  pod 'RealmSwift', '=10.1.1'
+  pod 'RealmSwift', '=10.1.2'
 end

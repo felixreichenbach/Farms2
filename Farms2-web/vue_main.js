@@ -1,42 +1,80 @@
+// Initialize Realm App client with App ID retrieved from URL
+const realmApp = new Realm.App({ id: "farms2-hbvuz" });
+
+
+async function realmlogin(username, password) {
+    const credentials = Realm.Credentials.emailPassword(username, password);
+    try {
+        // Authenticate the user
+        const user = await realmApp.logIn(credentials);
+        // `App.currentUser` updates to match the logged in user
+        console.assert(user.id === realmApp.currentUser.id)
+        return user
+    } catch (err) {
+        return err
+    }
+}
+
+
 const RootComponent = {
     data() {
-        return {
-            isLoggedIn: false,
-            name: "Felix"
+        if (realmApp.currentUser) {
+            return {
+                isLoggedIn: realmApp.currentUser.isLoggedIn
+            }
+        } else {
+            return { isLoggedIn: false }
         }
     },
     methods: {
-        login() {
-            console.log("Logged In!")
+        async login() {
             this.isLoggedIn = true
         }
     }
 }
 
+
 const app = Vue.createApp(RootComponent)
 
 app.component('profile', {
-    props: ['name'],
+    data() {
+        return { name: realmApp.currentUser.profile.email }
+    },
+    methods: {
+        logout() {
+            realmApp.currentUser.logOut().then(result => {
+                this.$root.isLoggedIn = false
+            })
+
+        }
+    },
     template: `
-    <p>User: {{ name }}</p>`
+    <p>User: {{ name }}</p>
+    <button v-on:click="logout">Logout</button>`
 })
 
 app.component('loginForm', {
     data() {
         return {
             email: null,
-            password: null
+            password: null,
+            error: null
         }
-
     },
     props: ['isLoggedIn'],
     methods: {
-        handleSubmit(e) {
-            console.log(JSON.stringify(e))
+        async handleSubmit() {
             if (this.email && this.password) {
-                this.$emit('login')
+                await realmlogin(this.email, this.password).then(result => {
+                    if (!result.error) {
+                        this.$emit('login')
+                    } else {
+                        this.error = result.error
+                    }
+                })
+
             } else {
-                console.log("Form Incomplete")
+                this.error = "Form Incomplete"
             }
 
         }
@@ -48,7 +86,7 @@ app.component('loginForm', {
         <label for="password">Password</label>
         <input type="password" id="password" v-model="password" placeholder="Password" autocomplete="current-password">
         <button id="loginButton" type="submit">Sign in</button>
-        <p id="loginError"></p>
+        <p id="loginError">{{ error }}</p>
     </form>`
 })
 

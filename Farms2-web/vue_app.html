@@ -6,7 +6,7 @@
 
 <body>
     <div id="app">
-        <profile v-if="isLoggedIn" :name="name"></profile>
+        <profile v-if="isLoggedIn"></profile>
         <login-form v-if="!isLoggedIn" :isLoggedIn="isLoggedIn" @login="login"></login-form>
     </div>
 

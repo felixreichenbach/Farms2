@@ -15,6 +15,7 @@ async function realmlogin(username, password) {
     }
 }
 
+// Vue.js Components
 
 const RootComponent = {
     data() {
@@ -33,25 +34,8 @@ const RootComponent = {
     }
 }
 
-
 const app = Vue.createApp(RootComponent)
 
-app.component('profile', {
-    data() {
-        return { name: realmApp.currentUser.profile.email }
-    },
-    methods: {
-        logout() {
-            realmApp.currentUser.logOut().then(result => {
-                this.$root.isLoggedIn = false
-            })
-
-        }
-    },
-    template: `
-    <p>User: {{ name }}</p>
-    <button v-on:click="logout">Logout</button>`
-})
 
 app.component('loginForm', {
     data() {
@@ -76,7 +60,6 @@ app.component('loginForm', {
             } else {
                 this.error = "Form Incomplete"
             }
-
         }
     },
     template: `
@@ -88,6 +71,50 @@ app.component('loginForm', {
         <button id="loginButton" type="submit">Sign in</button>
         <p id="loginError">{{ error }}</p>
     </form>`
+})
+
+
+app.component('profile', {
+    data() {
+        return { name: realmApp.currentUser.profile.email }
+    },
+    methods: {
+        logout() {
+            realmApp.currentUser.logOut().then(result => {
+                this.$root.isLoggedIn = false
+            })
+
+        }
+    },
+    template: `
+    <p>User: {{ name }}</p>
+    <button v-on:click="logout">Logout</button>`
+})
+
+
+app.component('items', {
+    data() {
+        return {
+            items: [
+                {
+                    id: 1,
+                    name: 'Do the dishes'
+                },
+                {
+                    id: 2,
+                    name: 'Take out the trash'
+                },
+                {
+                    id: 3,
+                    name: 'Mow the lawn'
+                }
+            ]
+        }
+    },
+    methods: {
+    },
+    template: `
+        <li v-for="item in items">{{ item.name }}</li>`
 })
 
 const vm = app.mount('#app')

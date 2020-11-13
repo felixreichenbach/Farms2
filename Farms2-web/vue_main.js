@@ -92,7 +92,7 @@ app.component('profile', {
 })
 
 
-app.component('items', {
+app.component('listitems', {
     data() {
         return {
             items: [
@@ -113,8 +113,14 @@ app.component('items', {
     },
     methods: {
     },
+    components: {
+        'listitem': {
+            props: ['item'],
+            template: `<li>{{ item.name }}</li>`
+        }
+    },
     template: `
-        <li v-for="item in items">{{ item.name }}</li>`
+    <ul><listitem v-for="item in items" v-bind:item="item" v-bind:key="item.id"></listitem></ul>`
 })
 
 const vm = app.mount('#app')

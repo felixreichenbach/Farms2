@@ -8,9 +8,7 @@
     <div id="app">
         <login-form v-if="!isLoggedIn" :isLoggedIn="isLoggedIn" @login="login"></login-form>
         <profile v-if="isLoggedIn"></profile>
-        <ul>
-            <items v-if="isLoggedIn"></items>
-        </ul>
+        <listitems v-if="isLoggedIn"></listitems>
     </div>
 
     <script src="https://unpkg.com/vue@next"></script>

@@ -64,11 +64,15 @@ app.component('loginForm', {
     },
     template: `
     <form @submit.prevent="handleSubmit">
-        <label for="loginEmail">Email</label>
-        <input type="email" id="email" v-model="email" placeholder="Email Address" autocomplete="username">
-        <label for="password">Password</label>
-        <input type="password" id="password" v-model="password" placeholder="Password" autocomplete="current-password">
-        <button id="loginButton" type="submit">Sign in</button>
+        <div class="form-group">
+            <label for="loginEmail">Email</label>
+            <input type="email" id="email" v-model="email" placeholder="Email Address" autocomplete="username" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" v-model="password" placeholder="Password" autocomplete="current-password" class="form-control">
+        </div>
+        <button id="loginButton" type="submit" class="btn btn-primary">Sign in</button>
         <p id="loginError">{{ error }}</p>
     </form>`
 })
@@ -88,7 +92,7 @@ app.component('profile', {
     },
     template: `
     <p>User: {{ name }}</p>
-    <button v-on:click="logout">Logout</button>`
+    <button v-on:click="logout" class="btn btn-primary">Logout</button>`
 })
 
 
@@ -116,11 +120,11 @@ app.component('listitems', {
     components: {
         'listitem': {
             props: ['item'],
-            template: `<li>{{ item.name }}</li>`
+            template: `<li class="list-group-item">{{ item.name }}</li>`
         }
     },
     template: `
-    <ul><listitem v-for="item in items" v-bind:item="item" v-bind:key="item.id"></listitem></ul>`
+    <ul class="list-group"><listitem v-for="item in items" v-bind:item="item" v-bind:key="item.id"></listitem></ul>`
 })
 
 const vm = app.mount('#app')

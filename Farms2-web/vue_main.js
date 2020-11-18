@@ -116,6 +116,9 @@ app.component('listitems', {
         }
     },
     methods: {
+        handleBlur(e) {
+            console.log('blur', e.currentTarget.innerHTML)
+        }
     },
     components: {
         'listitem': {
@@ -124,7 +127,7 @@ app.component('listitems', {
         }
     },
     template: `
-    <ul class="list-group"><listitem v-for="item in items" v-bind:item="item" v-bind:key="item.id"></listitem></ul>`
+    <ul class="list-group"><listitem v-for="item in items" v-bind:item="item" v-bind:key="item.id" @blur="handleBlur" contenteditable="true"></listitem></ul>`
 })
 
 const vm = app.mount('#app')

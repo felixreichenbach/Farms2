@@ -1,5 +1,5 @@
 # Uncomment the next line to define a global platform for your project
-platform :ios, '11'
+platform :ios, '14.0'
 
 target 'Farms2' do
   # Comment the next line if you don't want to use dynamic frameworks
@@ -8,5 +8,5 @@ target 'Farms2' do
   # Pods for Farms2
   use_modular_headers!
   # Pods for Farms
-  pod 'RealmSwift', '=10.2.0'
+  pod 'RealmSwift', '=10.4.0'
 end

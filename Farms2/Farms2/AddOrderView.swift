@@ -48,7 +48,7 @@ struct AddOrderView: View {
     }
 }
 
-struct AddSheetView_Previews: PreviewProvider {
+struct AddOrderView_Previews: PreviewProvider {
     static var previews: some View {
         AddOrderView(viewModel: MyViewModel())
     }

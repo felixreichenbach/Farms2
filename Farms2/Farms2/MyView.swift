@@ -43,8 +43,9 @@ struct MyView: View {
     
 }
 
-struct View_Previews: PreviewProvider {
+struct MyView_Previews: PreviewProvider {
     static var previews: some View {
-        MyView()
+        MyView().environmentObject(AppState())
     }
 }
+

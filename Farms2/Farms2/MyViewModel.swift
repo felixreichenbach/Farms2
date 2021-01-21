@@ -67,7 +67,7 @@ class MyViewModel: ObservableObject {
     func addOrder(text: String) {
         let newOrder = MyOrder()
         newOrder.name = text
-        try! self.realm.write(withoutNotifying: [notificationToken!]) {
+        try! self.realm.write() {
             self.realm.add(newOrder)
         }
     }
@@ -77,8 +77,8 @@ class MyViewModel: ObservableObject {
         let delOrder = myOrders[offsets.first!]
         
         // Delete an object with a transaction
-        try! realm.write {
-            realm.delete(delOrder)
+        try! self.realm.write {
+            self.realm.delete(delOrder)
         }
     }
     

@@ -8,75 +8,55 @@
 
 import Foundation
 import RealmSwift
+import Combine
 
-let app = App(id: Constants.MY_REALM_APP,
-              configuration: AppConfiguration(baseURL: Constants.MY_INSTANCE_BASE_URL,
-                                              transport: nil,
-                                              localAppName: nil,
-                                              localAppVersion: nil))
+// Global application object
+let app = Constants.USE_REALM_SYNC ? App(id: Constants.MY_REALM_APP) : nil
+
 
 class AppState: ObservableObject {
+    
+    /// Publisher that monitors log in state.
+    var loginPublisher = PassthroughSubject<User, Error>()
+    /// Publisher that monitors log out state.
+    var logoutPublisher = PassthroughSubject<Void, Error>()
+    /// Cancellables to be retained for any Future.
+    var cancellables = Set<AnyCancellable>()
+    /// Whether or not the app is active in the background.
+    @Published var shouldIndicateActivity = false
+    /// The list of items in the first group in the realm that will be displayed to the user.
+    @Published var orders: RealmSwift.List<Order>?
+    
+    // My OLD CODE
     @Published var loggedIn = false
     @Published var errorLabel = ""
     @Published var showSplash = false
     
     init() {
-        if (app.currentUser == nil) {
-            self.loggedIn = false
-        } else {
-            self.loggedIn = true
-        }
-    }
-    
-    
-    func signup(username: String, password: String) {
-        print("signup")
-        let emailPassProvider = app.emailPasswordAuth
-        emailPassProvider.registerUser(email: username, password: password){ (result) in
-            self.login(username: username, password: password)
-        }
-    }
-    
-    func login(username: String, password: String) {
-        print("login")
-        DispatchQueue.main.async {
-            self.showSplash = true
-        }
-        let credentials = Credentials.emailPassword(email: username, password: password)
-        app.login(credentials: credentials) { (result) in
-            switch result {
-            case .success(let username):
-                print("user: \(username)")
-                DispatchQueue.main.async {
-                    self.loggedIn = true
-                    self.errorLabel = ""
-                    self.showSplash = false
-                    return
-                }
-                
-            case .failure(let error):
-                DispatchQueue.main.async {
-                    self.showSplash = false
-                    self.errorLabel = error.localizedDescription
-                }
-            }
-        }
-    }
-    
-    func logout() {
-        let group = DispatchGroup() // initialize
         
-        group.enter() // wait
-        app.currentUser?.logOut() { (error: Error?) in
-            guard error == nil else {
-                fatalError("Error: \(error!.localizedDescription)")
-            }
-            group.leave()
-        }
-        
-        group.notify(queue: .main) {
-            self.loggedIn = false
-            print("logout")
-        }
+        // Create a private subject for the opened realm, so that:
+        // - if we are not using Realm Sync, we can open the realm immediately.
+        // - if we are using Realm Sync, we can open the realm later after login.
+        let realmPublisher = PassthroughSubject<Realm, Error>()
+        // Specify what to do when the realm opens, regardless of whether
+        // we're authenticated and using Realm Sync or not.
+        realmPublisher
+            .sink(receiveCompletion: { result in
+                // Check for failure.
+                if case let .failure(error) = result {
+                    print("Failed to log in and open realm: \(error.localizedDescription)")
+                }
+            }, receiveValue: { realm in
+                // The realm has successfully opened.
+                // If no group has been created for this app, create one.
+                if realm.objects(Collection.self).count == 0 {
+                    try! realm.write {
+                        realm.add(Collection())
+                    }
+                }
+                assert(realm.objects(Collection.self).count > 0)
+                self.orders = realm.objects(Collection.self).first!.orders
+            })
+            .store(in: &cancellables)
     }
 }

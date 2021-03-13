@@ -7,25 +7,31 @@
 //
 
 import SwiftUI
+import RealmSwift
 
-struct MyView: View {
-    @EnvironmentObject var settings: AppState
-    @ObservedObject var viewModel = MyViewModel()
+struct OrderView: View {
+    @ObservedObject var viewModel = OrderViewModel()
     @State var showAddSheetView = false
+    
+    /// The items in this group.
+    @ObservedObject var orders: RealmSwift.List<Order>
+    
+    /// The button to be displayed on the top left.
+    var leadingBarButton: AnyView?
     
     var body: some View {
         NavigationView {
             List {
-                ForEach(viewModel.myOrders.freeze(), id: \._id) {
+                ForEach(orders.freeze(), id: \._id) {
                     model in Text(model.name)
                 }
                 .onDelete(perform: delete)
             }
-            .navigationBarTitle(Text("Models: \(viewModel.myOrders.count)"))
+            .navigationBarTitle(Text("Models: \(orders.count)"))
             .navigationBarItems(
                 leading:
                 Button(action: {
-                    self.settings.logout()
+                    //self.settings.logout()
                 }) {Text("Logout")},
                 trailing:
                 Button(action: {
@@ -43,9 +49,10 @@ struct MyView: View {
     
 }
 
-struct MyView_Previews: PreviewProvider {
+/*
+struct OrderView_Previews: PreviewProvider {
     static var previews: some View {
-        MyView().environmentObject(AppState())
+        OrderView(orders: List<Order>)
     }
 }
-
+*/

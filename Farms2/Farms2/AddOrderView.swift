@@ -7,16 +7,14 @@
 //
 
 import SwiftUI
+import RealmSwift
 
 struct AddOrderView: View {
     
     @Environment(\.presentationMode) var presentationMode
-    @ObservedObject var viewModel: OrderViewModel
-    @State private var inputText: String = ""
+    @ObservedObject var orders: RealmSwift.List<Order>
     
-    init(viewModel: OrderViewModel) {
-        self.viewModel = viewModel
-    }
+    @State private var inputText: String = ""
     
     private var validated: Bool {
         inputText.isEmpty
@@ -31,7 +29,7 @@ struct AddOrderView: View {
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .padding()
                 Button(action: {
-                    self.viewModel.addOrder(text: self.inputText)
+                    addOrder(text: self.inputText)
                     self.presentationMode.wrappedValue.dismiss()
                 }) {
                     Text("Save")
@@ -46,10 +44,25 @@ struct AddOrderView: View {
                 })
         }
     }
-}
-
-struct AddOrderView_Previews: PreviewProvider {
-    static var previews: some View {
-        AddOrderView(viewModel: OrderViewModel())
+    
+    func addOrder(text: String){
+        let newOrder = Order()
+        newOrder.name = text
+        guard let realm = orders.realm else {
+            orders.append(newOrder)
+            return
+        }
+        try! realm.write {
+            orders.append(newOrder)
+        }
     }
 }
+
+
+/*
+struct AddOrderView_Previews: PreviewProvider {
+    static var previews: some View {
+        AddOrder*View(orders: Order())
+    }
+}
+*/

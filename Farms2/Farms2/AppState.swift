@@ -58,5 +58,63 @@ class AppState: ObservableObject {
                 self.orders = realm.objects(Collection.self).first!.orders
             })
             .store(in: &cancellables)
+        
+        
+        // If the Realm app is nil, we are in the local-only use case
+        // and do not need to log in or configure the realm for Sync.
+        guard let app = app else {
+            // MARK: Local-Only Use Case
+            print("Not using Realm Sync - opening realm")
+            // Directly open the default local-only realm.
+            realmPublisher.send(try! Realm())
+            return
+        }
+        // Monitor login state and open a realm on login.
+        loginPublisher
+            .receive(on: DispatchQueue.main) // Ensure we update UI elements on the main thread.
+            .flatMap { user -> RealmPublishers.AsyncOpenPublisher in
+                // Logged in, now open the realm.
+                // We want to chain the login to the opening of the realm.
+                // flatMap() takes a result and returns a different Publisher.
+                // In this case, flatMap() takes the user result from the login
+                // and returns the realm asyncOpen's result publisher for further
+                // processing.
+                // We use "SharedPartition" as the partition value so that all users of this app
+                // can see the same data. If we used the user.id, we could store data per user.
+                // However, with anonymous authentication, that user.id changes upon logout and login,
+                // so we will not see the same data or be able to sync across devices.
+                
+                let configuration = user.configuration(partitionValue: user.id)
+                
+                // Loading may take a moment, so indicate activity.
+                self.shouldIndicateActivity = true
+                // Open the realm and return its publisher to continue the chain.
+                return Realm.asyncOpen(configuration: configuration)
+            }
+            .receive(on: DispatchQueue.main) // Ensure we update UI elements on the main thread.
+            .map { // For each realm result, whether successful or not, always stop indicating activity.
+                self.shouldIndicateActivity = false // Stop indicating activity.
+                return $0 // Forward the result as-is to the next stage.
+            }
+            .subscribe(realmPublisher) // Forward the opened realm to the handler we set up earlier.
+            .store(in: &self.cancellables)
+        
+        // Monitor logout state and unset the items list on logout.
+        logoutPublisher
+            .receive(on: DispatchQueue.main)
+            .sink(
+                receiveCompletion: { _ in
+                    print("received")
+                },
+                receiveValue: { _ in
+                    self.orders = nil
+                })
+            .store(in: &self.cancellables)
+        
+        // If we already have a current user from a previous app
+        // session, announce it to the world.
+        if let user = app.currentUser {
+            loginPublisher.send(user)
+        }
     }
 }

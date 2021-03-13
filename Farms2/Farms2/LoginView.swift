@@ -13,8 +13,9 @@ struct LoginView: View {
     
     @EnvironmentObject var state: AppState
     
-    @State var email: String = "foo@bar.com"
+    @State var email: String = "demo@realm.com"
     @State var password: String = "password"
+    @State var error: Error?
     
     var body: some View {
         VStack {
@@ -25,60 +26,56 @@ struct LoginView: View {
             SecureField("Passwod", text: $password)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .padding(.bottom, 20)
-            Button(action: {
-                app?.login(credentials: Credentials.emailPassword(email: email, password: password)) { (result) in
-                    switch result {
-                    case .failure(let error):
-                        print("Login failed: \(error.localizedDescription)")
-                    case .success(let user):
-                        print("Successfully logged in as user \(user)")
-                        // Now logged in, do something with user
-                        // Remember to dispatch to main if you are doing anything on the UI thread
-                    }
-                }
-            }) {
-                Text("Login")
+            Button("Login", action: login)
+                .font(.headline)
+                .padding(.bottom, 20)
+            Button("Signup", action: signup)
+                .font(.headline)
+                .padding()
+            if let error = error {
+                Text("Error: \(error.localizedDescription)")
+                    .foregroundColor(.red)
             }
-            .font(.headline)
-            .padding(.bottom, 20)
-            Button(action: {
-                app?.emailPasswordAuth.registerUser(email: email, password: password) { (error) in
-                    guard error == nil else {
-                        print("Failed to register: \(error!.localizedDescription)")
-                        return
-                    }
-                    // Registering just registers. You can now log in.
-                    print("Successfully registered user.")
-                }
-            }) {
-                Text("Signup")
-            }
-            .font(.headline)
-            .padding()
-            Text(state.errorLabel)
-                .foregroundColor(.red)
         }
         .padding()
     }
-}
+    
+    
+    func login(){
+        state.shouldIndicateActivity = true
+        app?.login(credentials: Credentials.emailPassword(email: email, password: password))
+            .receive(on: DispatchQueue.main).sink(
+                receiveCompletion: {
+                    state.shouldIndicateActivity = false
+                    switch ($0) {
+                    case .finished:
+                        print("Successfully logged in as user")
+                        // Now logged in, do something with user
+                        // Remember to dispatch to main if you are doing anything on the UI thread
+                        break
+                    case .failure(let error):
+                        print("Login failed: \(error.localizedDescription)")
+                    }
+                },
+                receiveValue: {
+                    self.error = nil
+                    state.loginPublisher.send($0)
+                }
+            )
+            .store(in: &state.cancellables)
+    }
 
-
-/// A button that handles logout requests.
-struct LogoutButton: View {
-    @EnvironmentObject var state: AppState
-    var body: some View {
-        Button("Log Out") {
-            guard let app = app else {
-                print("Not using Realm Sync - not logging out")
+    func signup(){
+        app?.emailPasswordAuth.registerUser(email: email, password: password) { (error) in
+            guard error == nil else {
+                self.error = error
                 return
             }
-            state.shouldIndicateActivity = true
-            app.currentUser?.logOut().receive(on: DispatchQueue.main).sink(receiveCompletion: { _ in }, receiveValue: {
-                state.shouldIndicateActivity = false
-                state.logoutPublisher.send($0)
-            }).store(in: &state.cancellables)
-        }.disabled(state.shouldIndicateActivity)
+            // Registering just registers. You can now log in.
+            print("Successfully registered user.")
+        }
     }
+
 }
 
 struct LoginView_Previews: PreviewProvider {

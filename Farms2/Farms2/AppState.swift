@@ -27,11 +27,6 @@ class AppState: ObservableObject {
     /// The list of items in the first group in the realm that will be displayed to the user.
     @Published var orders: RealmSwift.List<Order>?
     
-    // My OLD CODE
-    @Published var loggedIn = false
-    @Published var errorLabel = ""
-    @Published var showSplash = false
-    
     init() {
         
         // Create a private subject for the opened realm, so that:

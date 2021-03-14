@@ -18,9 +18,6 @@ struct ContentView: View {
             // If a realm is open for a logged in user, show the ItemsView
             // else show the LoginView
             if let orders = state.orders {
-                // If using Realm Sync and authentication, provide a logout button
-                // in the top left of the ItemsView.
-                //let leadingBarButton = app != nil ? AnyView(LogoutButton().environmentObject(state)) : nil
                 OrderView(orders: orders)
             } else {
                 LoginView()

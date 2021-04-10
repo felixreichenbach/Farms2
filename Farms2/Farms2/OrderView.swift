@@ -65,8 +65,10 @@ struct OrderView: View {
 
 /*
  struct OrderView_Previews: PreviewProvider {
- static var previews: some View {
- OrderView(orders: List<Order>)
- }
+    static let someorders = RealmSwift.List<Order>()
+    static var previews: some View {
+        OrderView(orders: someorders)
+    }
  }
  */
+

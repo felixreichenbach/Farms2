@@ -26,6 +26,8 @@ class AppState: ObservableObject {
     @Published var shouldIndicateActivity = false
     /// The list of items in the first group in the realm that will be displayed to the user.
     @Published var orders: RealmSwift.List<Order>?
+    /// Error message
+    @Published var errorMessage: String = ""
     
     init() {
         
@@ -111,5 +113,56 @@ class AppState: ObservableObject {
         if let user = app.currentUser {
             loginPublisher.send(user)
         }
+    }
+    
+    func login(email:String, password:String){
+        print("appState.login")
+        shouldIndicateActivity = true
+        app?.login(credentials: Credentials.emailPassword(email: email, password: password))
+            .receive(on: DispatchQueue.main).sink(
+                receiveCompletion: {
+                    self.shouldIndicateActivity = false
+                    switch ($0) {
+                    case .finished:
+                        print("Successfully logged in as user")
+                        // Now logged in, do something with user
+                        // Remember to dispatch to main if you are doing anything on the UI thread
+                        break
+                    case .failure(let error):
+                        self.errorMessage = "Login failed: \(error.localizedDescription)"
+                        print("Login failed: \(error.localizedDescription)")
+                    }
+                },
+                receiveValue: {
+                    self.errorMessage = ""
+                    self.loginPublisher.send($0)
+                }
+            )
+            .store(in: &self.cancellables)
+    }
+    
+
+    func signup(email:String, password:String) {
+        print("appState.signup")
+        shouldIndicateActivity = true
+        app?.emailPasswordAuth.registerUser(email: email, password: password, completion: { [weak self](error) in
+            // Completion handlers are not necessarily called on the UI thread.
+            // This call to DispatchQueue.main.async ensures that any changes to the UI,
+            // namely disabling the loading indicator and navigating to the next page,
+            // are handled on the UI thread:
+            DispatchQueue.main.async {
+                guard error == nil else {
+                    print("Signup failed: \(error!)")
+                    self?.errorMessage = "Signup failed: \(error!.localizedDescription)"
+                    self?.shouldIndicateActivity = false
+                    return
+                }
+                print("Signup successful!")
+                // Registering just registers. Now we need to sign in, but we can reuse the existing email and password.
+                self?.errorMessage = ""
+                self?.shouldIndicateActivity = false
+                self?.login(email: email, password: password)
+            }
+        })
     }
 }

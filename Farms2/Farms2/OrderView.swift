@@ -40,25 +40,12 @@ struct OrderView: View {
     
     
     func delete(at offsets: IndexSet) {
-        guard let realm = orders.realm else {
-            orders.remove(at: offsets.first!)
-            return
-        }
-        try! realm.write {
-            realm.delete(orders[offsets.first!])
-        }
+        state.delete(at: offsets)
     }
     
     
     func logout(){
-        guard let app = app else {
-            return
-        }
-        state.shouldIndicateActivity = true
-        app.currentUser?.logOut().receive(on: DispatchQueue.main).sink(receiveCompletion: { _ in }, receiveValue: {
-            state.shouldIndicateActivity = false
-            state.logoutPublisher.send($0)
-        }).store(in: &state.cancellables)
+        state.logout()
     }
     
 }
@@ -70,5 +57,7 @@ struct OrderView: View {
         OrderView(orders: someorders)
     }
  }
+ 
+ https://stackoverflow.com/questions/58701826/swiftui-how-to-instantiate-previewprovider-when-view-requires-binding-in-initia
  */
 

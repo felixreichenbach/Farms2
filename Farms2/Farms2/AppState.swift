@@ -115,8 +115,9 @@ class AppState: ObservableObject {
         }
     }
     
+    
     func login(email:String, password:String){
-        print("appState.login")
+        print("AppState: login")
         shouldIndicateActivity = true
         app?.login(credentials: Credentials.emailPassword(email: email, password: password))
             .receive(on: DispatchQueue.main).sink(
@@ -143,7 +144,7 @@ class AppState: ObservableObject {
     
 
     func signup(email:String, password:String) {
-        print("appState.signup")
+        print("AppState: signup")
         shouldIndicateActivity = true
         app?.emailPasswordAuth.registerUser(email: email, password: password, completion: { [weak self](error) in
             // Completion handlers are not necessarily called on the UI thread.
@@ -164,5 +165,27 @@ class AppState: ObservableObject {
                 self?.login(email: email, password: password)
             }
         })
+    }
+    
+    
+    func logout(){
+        print("AppState: logout")
+        shouldIndicateActivity = true
+        app?.currentUser?.logOut().receive(on: DispatchQueue.main).sink(receiveCompletion: { _ in }, receiveValue: {
+            self.shouldIndicateActivity = false
+            self.logoutPublisher.send($0)
+        }).store(in: &cancellables)
+    }
+    
+    
+    func delete(at offsets: IndexSet) {
+        print("AppState: delete")
+        guard let realm = orders?.realm else {
+            orders!.remove(at: offsets.first!)
+            return
+        }
+        try! realm.write {
+            realm.delete(orders![offsets.first!])
+        }
     }
 }

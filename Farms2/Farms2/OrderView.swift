@@ -13,6 +13,7 @@ struct OrderView: View {
     @State var showAddSheetView = false
     @EnvironmentObject var state: AppState
     
+    
     /// The items in this group.
     @ObservedObject var orders: RealmSwift.List<Order>
     
@@ -33,7 +34,7 @@ struct OrderView: View {
                         self.showAddSheetView.toggle()
                     }) {Text("Add")}
                     .sheet(isPresented: $showAddSheetView) {
-                        AddOrderView(orders: orders)
+                        AddOrderView(showAddSheetView: self.$showAddSheetView)
                     })
         }
     }
@@ -49,6 +50,7 @@ struct OrderView: View {
     }
     
 }
+
 
 /*
  struct OrderView_Previews: PreviewProvider {

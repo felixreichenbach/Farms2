@@ -10,9 +10,9 @@ import SwiftUI
 import RealmSwift
 
 struct AddOrderView: View {
-    
-    @Environment(\.presentationMode) var presentationMode
-    @ObservedObject var orders: RealmSwift.List<Order>
+
+    @EnvironmentObject var state: AppState
+    @Binding var showAddSheetView: Bool
     
     @State private var inputText: String = ""
     
@@ -29,8 +29,8 @@ struct AddOrderView: View {
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .padding()
                 Button(action: {
-                    addOrder(text: self.inputText)
-                    self.presentationMode.wrappedValue.dismiss()
+                    state.addOrder(text: inputText)
+                    self.showAddSheetView.toggle()
                 }) {
                     Text("Save")
                         .font(.headline)
@@ -38,31 +38,18 @@ struct AddOrderView: View {
             }
             .navigationBarTitle(Text("New Order Form"), displayMode: .inline)
                 .navigationBarItems(trailing: Button(action: {
-                    self.presentationMode.wrappedValue.dismiss()
+                    self.showAddSheetView.toggle()
                 }) {
                     Text("Done").bold()
                 })
         }
     }
-    
-    func addOrder(text: String){
-        let newOrder = Order()
-        newOrder.name = text
-        guard let realm = orders.realm else {
-            orders.append(newOrder)
-            return
-        }
-        try! realm.write {
-            orders.append(newOrder)
-        }
-    }
 }
 
 
-/*
 struct AddOrderView_Previews: PreviewProvider {
     static var previews: some View {
-        AddOrder*View(orders: Order())
+        AddOrderView(showAddSheetView: .constant(true))
     }
 }
-*/
+

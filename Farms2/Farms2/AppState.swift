@@ -177,6 +177,19 @@ class AppState: ObservableObject {
         }).store(in: &cancellables)
     }
     
+    func addOrder(text: String) {
+        print("AppState: addOrder")
+        
+        let newOrder = Order()
+        newOrder.name = text
+        guard let realm = orders?.realm else {
+            orders?.append(newOrder)
+            return
+        }
+        try! realm.write {
+            orders?.append(newOrder)
+        }
+    }
     
     func delete(at offsets: IndexSet) {
         print("AppState: delete")

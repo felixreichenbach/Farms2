@@ -167,7 +167,6 @@ class AppState: ObservableObject {
         })
     }
     
-    
     func logout(){
         print("AppState: logout")
         shouldIndicateActivity = true
@@ -182,11 +181,8 @@ class AppState: ObservableObject {
         
         let newOrder = Order()
         newOrder.name = text
-        guard let realm = orders?.realm else {
-            orders?.append(newOrder)
-            return
-        }
-        try! realm.write {
+        
+        try! orders?.realm!.write {
             orders?.append(newOrder)
         }
     }

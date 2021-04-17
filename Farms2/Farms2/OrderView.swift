@@ -52,14 +52,25 @@ struct OrderView: View {
 }
 
 
-/*
+
  struct OrderView_Previews: PreviewProvider {
-    static let someorders = RealmSwift.List<Order>()
+    
     static var previews: some View {
-        OrderView(orders: someorders)
+        OrderView(orders: createData())
+    }
+    
+    static func createData() -> RealmSwift.List<Order> {
+        let realm = try! Realm()
+        
+        try! realm.write {
+            realm.deleteAll()
+            realm.add(Collection())
+        }
+        try! realm.write {
+            realm.objects(Collection.self).first!.orders.append(Order())
+        }
+        return realm.objects(Collection.self).first!.orders
     }
  }
- 
- https://stackoverflow.com/questions/58701826/swiftui-how-to-instantiate-previewprovider-when-view-requires-binding-in-initia
- */
+
 

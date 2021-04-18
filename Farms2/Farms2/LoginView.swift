@@ -17,24 +17,31 @@ struct LoginView: View {
     @State var password: String = "password"
     
     var body: some View {
-        VStack {
-            Text("Welcome")
-                .font(.title)
-            TextField("Username", text: $email)
-                .textFieldStyle(RoundedBorderTextFieldStyle())
-            SecureField("Passwod", text: $password)
-                .textFieldStyle(RoundedBorderTextFieldStyle())
-                .padding(.bottom, 20)
-            Button("Login", action: login)
-                .font(.headline)
-                .padding(.bottom, 20)
-            Button("Signup", action: signup)
-                .font(.headline)
-                .padding()
-            Text("\(state.errorMessage)")
-                    .foregroundColor(.red)
+        ZStack {
+            Color("Color")
+                .ignoresSafeArea()
+            VStack {
+                Image("Farms1024")
+                    .resizable()
+                    .scaledToFit()
+                Text("Welcome")
+                    .font(.title)
+                TextField("Username", text: $email)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                SecureField("Passwod", text: $password)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .padding(.bottom, 20)
+                Button("Login", action: login)
+                    .font(.headline)
+                    .padding(.bottom, 20)
+                Button("Signup", action: signup)
+                    .font(.headline)
+                    .padding()
+                Text("\(state.errorMessage)")
+                        .foregroundColor(.red)
+            }
+            .padding()
         }
-        .padding()
     }
     
     

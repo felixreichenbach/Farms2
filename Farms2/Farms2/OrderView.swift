@@ -13,7 +13,6 @@ struct OrderView: View {
     @State var showAddSheetView = false
     @EnvironmentObject var state: AppState
     
-    
     /// The items in this group.
     @ObservedObject var orders: RealmSwift.List<Order>
     

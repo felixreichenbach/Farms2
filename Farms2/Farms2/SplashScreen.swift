@@ -11,7 +11,7 @@ import SwiftUI
 struct SplashScreen: View {
     var body: some View {
         ZStack {
-            Color.white
+            Color("Color")
             .edgesIgnoringSafeArea(.all)
             Image("RealmLogo")
         }

@@ -10,8 +10,7 @@ import Foundation
 import RealmSwift
 import Combine
 
-// Global application object
-let app = Constants.USE_REALM_SYNC ? App(id: Constants.MY_REALM_APP) : nil
+
 
 
 class AppState: ObservableObject {

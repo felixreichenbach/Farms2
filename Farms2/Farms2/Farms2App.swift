@@ -7,16 +7,24 @@
 //
 
 import SwiftUI
+import RealmSwift
+
+// Global application object
+//let app = Constants.USE_REALM_SYNC ? RealmSwift.App(id: Constants.MY_REALM_APP) : nil
+
+
+/*
+let app: RealmSwift.App? = RealmSwift.App(id: Constants.MY_REALM_APP)
 
 @main
-struct Farms2App: App {
+struct Farms2App: SwiftUI.App {
     
     var body: some Scene {
         WindowGroup {
-            ContentView().environmentObject(AppState())
+            ContentView(app: app).environmentObject(AppState())
         }
     }
 }
 
-
+*/
 

@@ -18,7 +18,6 @@
 		632F5F172456C18F00775FE3 /* Order.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632F5F162456C18F00775FE3 /* Order.swift */; };
 		634297E92493CBD400115B04 /* SplashScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634297E82493CBD400115B04 /* SplashScreen.swift */; };
 		63C2F5A82458BA9D00B4083F /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C2F5A72458BA9D00B4083F /* AppState.swift */; };
-		63D1FC7125D8026700E94866 /* Farms2App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D1FC7025D8026700E94866 /* Farms2App.swift */; };
 		63FA63972458B34E00684F1D /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63FA63962458B34E00684F1D /* Constants.swift */; };
 /* End PBXBuildFile section */
 
@@ -34,7 +33,6 @@
 		632F5F162456C18F00775FE3 /* Order.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Order.swift; sourceTree = "<group>"; };
 		634297E82493CBD400115B04 /* SplashScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreen.swift; sourceTree = "<group>"; };
 		63C2F5A72458BA9D00B4083F /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
-		63D1FC7025D8026700E94866 /* Farms2App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Farms2App.swift; sourceTree = "<group>"; };
 		63FA63962458B34E00684F1D /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -71,7 +69,6 @@
 			isa = PBXGroup;
 			children = (
 				63FA63962458B34E00684F1D /* Constants.swift */,
-				63D1FC7025D8026700E94866 /* Farms2App.swift */,
 				63C2F5A72458BA9D00B4083F /* AppState.swift */,
 				632BEC842455D7B700E9192C /* ContentView.swift */,
 				632BEC862455D7BA00E9192C /* Assets.xcassets */,
@@ -175,7 +172,6 @@
 				6314DD602458A34A00B6C426 /* LoginView.swift in Sources */,
 				63C2F5A82458BA9D00B4083F /* AppState.swift in Sources */,
 				630FF3312456EAB500DB4297 /* AddOrderView.swift in Sources */,
-				63D1FC7125D8026700E94866 /* Farms2App.swift in Sources */,
 				634297E92493CBD400115B04 /* SplashScreen.swift in Sources */,
 				632F5F152456BBEE00775FE3 /* OrderView.swift in Sources */,
 				632BEC852455D7B700E9192C /* ContentView.swift in Sources */,

@@ -23,10 +23,18 @@ class AppState: ObservableObject {
     var cancellables = Set<AnyCancellable>()
     /// Whether or not the app is active in the background.
     @Published var shouldIndicateActivity = false
-    /// The list of items in the first group in the realm that will be displayed to the user.
-    @Published var orders: RealmSwift.List<Order>?
     /// Error message
     @Published var errorMessage: String = ""
+    /// The list of items in the first group in the realm that will be displayed to the user.
+    @Published var orders: RealmSwift.List<Order>?
+    /// View refresh on Realm change
+    @Published var realmChange: Bool = true
+
+    /// The Realm user
+    var user: RealmSwift.User?
+    /// The Realm change notifier
+    var notificationToken: NotificationToken?
+    
     
     init() {
         
@@ -52,6 +60,21 @@ class AppState: ObservableObject {
                 }
                 assert(realm.objects(Collection.self).count > 0)
                 self.orders = realm.objects(Collection.self).first!.orders
+                // Observe collection notifications. Keep a strong
+                // reference to the notification token or the
+                // observation will stop.
+                self.notificationToken = self.orders?.observe { changes in
+                    switch changes {
+                    case .initial:
+                        print("initial")
+                    case .update:
+                        print("update")
+                        self.realmChange.toggle()
+                        
+                    case .error(let error):
+                        fatalError("\(error)")
+                    }
+                }
             })
             .store(in: &cancellables)
         
@@ -79,6 +102,8 @@ class AppState: ObservableObject {
                 // can see the same data. If we used the user.id, we could store data per user.
                 // However, with anonymous authentication, that user.id changes upon logout and login,
                 // so we will not see the same data or be able to sync across devices.
+                
+                self.user = user
                 
                 let configuration = user.configuration(partitionValue: user.id)
                 
@@ -189,7 +214,7 @@ class AppState: ObservableObject {
     func delete(at offsets: IndexSet) {
         print("AppState: delete")
         guard let realm = orders?.realm else {
-            orders!.remove(at: offsets.first!)
+            //orders!.remove(at: offsets.first!)
             return
         }
         try! realm.write {

@@ -14,31 +14,26 @@ let app: RealmSwift.App? = RealmSwift.App(id: Constants.MY_REALM_APP)
 
 @main
 struct Farms2App: SwiftUI.App {
-    
     var body: some Scene {
         WindowGroup {
-            ContentView(app: app!).environmentObject(AppState())
+            ContentView().environmentObject(AppState())
         }
     }
 }
 
 struct ContentView: View {
-    @ObservedObject var app: RealmSwift.App
+
     @EnvironmentObject var state: AppState
+    @State var view: String = ""
     
     var body: some View {
         
         ZStack {
-            
-            // If a realm is open for a logged in user, show the ItemsView
-            // else show the LoginView
-            
-            if let orders = state.orders {
-                OrderView(orders: orders)
+            if (state.orders != nil) {
+                NewView()
             } else {
                 LoginView()
             }
-            
             // If the app is doing work in the background,
             // overlay an ActivityIndicator
             if state.shouldIndicateActivity {
@@ -50,6 +45,6 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView(app: RealmSwift.App(id: Constants.MY_REALM_APP)).environmentObject(AppState())
+        ContentView().environmentObject(AppState())
     }
 }

@@ -30,7 +30,7 @@ struct ContentView: View {
         
         ZStack {
             if (state.orders != nil) {
-                NewView()
+                OrderView()
             } else {
                 LoginView()
             }

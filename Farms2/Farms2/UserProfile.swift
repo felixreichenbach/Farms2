@@ -9,7 +9,7 @@
 import SwiftUI
 import RealmSwift
 
-struct HomescreenView: View {
+struct UserProfile: View {
     
     @EnvironmentObject var state: AppState
     
@@ -45,8 +45,8 @@ struct HomescreenView: View {
     }
 }
 
-struct HomescreenView_Previews: PreviewProvider {
+struct UserProfile_Previews: PreviewProvider {
     static var previews: some View {
-        HomescreenView()
+        UserProfile()
     }
 }

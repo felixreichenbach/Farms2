@@ -9,7 +9,7 @@
 import SwiftUI
 import RealmSwift
 
-struct NewView: View {
+struct OrderView: View {
     
     var body: some View {
         ZStack {
@@ -18,7 +18,7 @@ struct NewView: View {
                     .tabItem {
                         Label("Orders", systemImage: "list.dash")
                     }
-                HomescreenView()
+                UserProfile()
                     .tabItem {
                         Label("Profile", systemImage: "square.and.pencil")
                     }
@@ -75,6 +75,6 @@ struct Orders: View {
 
 struct NewView_Previews: PreviewProvider {
     static var previews: some View {
-        NewView().environmentObject(AppState())
+        OrderView().environmentObject(AppState())
     }
 }

@@ -71,17 +71,17 @@
 			isa = PBXGroup;
 			children = (
 				63FA63962458B34E00684F1D /* Constants.swift */,
+				632F5F162456C18F00775FE3 /* Order.swift */,
 				63C2F5A72458BA9D00B4083F /* AppState.swift */,
 				632BEC842455D7B700E9192C /* ContentView.swift */,
+				6314DD5F2458A34A00B6C426 /* LoginView.swift */,
+				630D9F45265D882B00625318 /* OrderView.swift */,
+				630FF3302456EAB500DB4297 /* AddOrderView.swift */,
+				631E1CC9265959AC0091BFA7 /* UserProfile.swift */,
+				634297E82493CBD400115B04 /* SplashScreen.swift */,
 				632BEC862455D7BA00E9192C /* Assets.xcassets */,
 				632BEC8E2455D7BA00E9192C /* Info.plist */,
 				632BEC882455D7BA00E9192C /* Preview Content */,
-				632F5F162456C18F00775FE3 /* Order.swift */,
-				630FF3302456EAB500DB4297 /* AddOrderView.swift */,
-				631E1CC9265959AC0091BFA7 /* UserProfile.swift */,
-				6314DD5F2458A34A00B6C426 /* LoginView.swift */,
-				634297E82493CBD400115B04 /* SplashScreen.swift */,
-				630D9F45265D882B00625318 /* OrderView.swift */,
 			);
 			path = Farms2;
 			sourceTree = "<group>";

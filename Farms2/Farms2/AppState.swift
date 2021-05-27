@@ -26,7 +26,7 @@ class AppState: ObservableObject {
     /// Error message
     @Published var errorMessage: String = ""
     /// The list of items in the first group in the realm that will be displayed to the user.
-    @Published var orders: RealmSwift.List<Order>?
+    @Published var orders: RealmSwift.Results<Order>?
     /// View refresh on Realm change
     @Published var realmChange: Bool = true
 
@@ -53,13 +53,13 @@ class AppState: ObservableObject {
             }, receiveValue: { realm in
                 // The realm has successfully opened.
                 // If no group has been created for this app, create one.
-                if realm.objects(Collection.self).count == 0 {
+                if realm.objects(Order.self).count == 0 {
                     try! realm.write {
-                        realm.add(Collection())
+                        realm.add(Order())
                     }
                 }
-                assert(realm.objects(Collection.self).count > 0)
-                self.orders = realm.objects(Collection.self).first!.orders
+                assert(realm.objects(Order.self).count > 0)
+                self.orders = realm.objects(Order.self)
                 // Observe collection notifications. Keep a strong
                 // reference to the notification token or the
                 // observation will stop.
@@ -207,14 +207,14 @@ class AppState: ObservableObject {
         newOrder.name = text
         
         try! orders?.realm!.write {
-            orders?.append(newOrder)
+            orders?.realm?.add(newOrder)
         }
     }
     
     func delete(at offsets: IndexSet) {
         print("AppState: delete")
         guard let realm = orders?.realm else {
-            //orders!.remove(at: offsets.first!)
+            print("Delete Failed")
             return
         }
         try! realm.write {
